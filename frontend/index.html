@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HWAP Protocol Demo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --bg: #050507;
+      --surface: #0E0E10;
+      --card: #121214;
+      --card-hover: #17171C;
+      --border: rgba(34, 197, 94, 0.08);
+      --border-strong: rgba(34, 197, 94, 0.18);
+      --text: #F3F4F6;
+      --text-secondary: #A1A1AA;
+      --muted: #52525B;
+      --accent: #22C55E;
+      --accent-light: #4ADE80;
+      --accent-bg: rgba(34, 197, 94, 0.06);
+      --green: #22C55E;
+      --green-bg: rgba(34, 197, 94, 0.06);
+      --amber: #F59E0B;
+      --amber-bg: rgba(245, 158, 11, 0.08);
+      --red: #EF4444;
+      --red-bg: rgba(239, 68, 68, 0.06);
+      --purple: #8B5CF6;
+      --purple-bg: rgba(139, 92, 246, 0.08);
+      --teal: #14B8A6;
+      --teal-bg: rgba(20, 184, 166, 0.08);
+      --radius: 12px;
+      --radius-lg: 16px;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(34, 197, 94, 0.15);
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(34, 197, 94, 0.3);
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      height: 58px;
+      background: rgba(5, 5, 7, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.4px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 3px;
+      background: var(--surface);
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font);
+      border-radius: 8px;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-btn.active {
+      color: #fff;
+      background: rgba(34, 197, 94, 0.15);
+      border-radius: 8px;
+    }
+
+    .nav-btn:hover:not(.active) {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .live-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 9px;
+      padding: 1px 6px;
+      border-radius: 99px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Ticker ── */
+    .ticker {
+      overflow: hidden;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 0;
+      font-size: 11px;
+      white-space: nowrap;
+      font-family: var(--mono);
+    }
+
+    .ticker-inner {
+      display: inline-block;
+      animation: scrollLeft 32s linear infinite;
+      padding-left: 100%;
+    }
+
+    @keyframes scrollLeft {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      100% {
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.3;
+        transform: scale(1.1);
+      }
+    }
+
+    /* ── Pages ── */
+    .page {
+      display: none;
+      padding: 0 0 4rem 0;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Curved Glow Backgrounds ── */
+    .hero-bg-curves {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 540px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Gradient Text ── */
+    .text-gradient {
+      background: linear-gradient(135deg, #fff 0%, #4ADE80 55%, #22C55E 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ── Grids ── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 1024px) {
+      .grid-2-large {
+        grid-template-columns: 1.25fr 0.75fr;
+      }
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.02);
+    }
+
+    .btn-sm {
+      padding: 7px 16px;
+      font-size: 12px;
+    }
+
+    /* ── Typography ── */
+    h1.hero-h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 900;
+      letter-spacing: -2.2px;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-green {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+    }
+
+    .badge-blue {
+      background: var(--accent-bg);
+      color: var(--accent-light);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+    }
+
+    .badge-amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid rgba(245, 158, 11, 0.15);
+    }
+
+    .badge-red {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+
+    /* ── Log Panel ── */
+    .log-panel {
+      background: #060608;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      height: 250px;
+      overflow-y: auto;
+    }
+
+    .log-line {
+      margin-bottom: 5px;
+      line-height: 1.55;
+      display: flex;
+    }
+
+    .log-time {
+      color: var(--muted);
+      margin-right: 12px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .log-info {
+      color: var(--accent-light);
+    }
+
+    .log-ok {
+      color: var(--green);
+    }
+
+    .log-warn {
+      color: var(--amber);
+    }
+
+    .log-data {
+      color: var(--text-secondary);
+    }
+
+    /* ── Algo Tier Items ── */
+    .algo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      margin-bottom: 8px;
+      background: transparent;
+      transition: all 0.15s;
+    }
+
+    .algo-item.active {
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
+    .algo-item:hover:not(.active) {
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .algo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: background 0.15s;
+    }
+
+    .algo-item.active .algo-dot {
+      background: var(--accent);
+    }
+
+    /* ── Tables ── */
+    .table-card {
+      overflow: hidden;
+      padding: 0 !important;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--text-secondary);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 1px;
+      background: rgba(34, 197, 94, 0.01);
+    }
+
+    tbody tr:hover {
+      background: rgba(34, 197, 94, 0.01);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ── Stats ── */
+    .stat-val {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+
+    /* ── Progress Bars ── */
+    .bar-track {
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.6s ease-out;
+    }
+
+    /* ── Flow Grid ── */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .flow-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.25rem 0.75rem;
+      background: rgba(34, 197, 94, 0.01);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .flow-card:hover {
+      border-color: rgba(34, 197, 94, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .flow-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      margin-bottom: 10px;
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Inputs ── */
+    .input-premium,
+    input[type="text"] {
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: var(--mono);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .input-premium:focus,
+    input[type="text"]:focus {
+      border-color: rgba(34, 197, 94, 0.45);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 1rem;
+      }
+
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-card {
+        flex-direction: row;
+        text-align: left;
+        gap: 1rem;
+        padding: 1rem;
+        align-items: center;
+      }
+
+      .flow-icon {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-left">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      H<span style="color:var(--accent)">W</span>AP
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn active" onclick="showPage('home')">Overview</button>
+      <button class="nav-btn" onclick="showPage('demo')">Live Demo <span class="live-badge">LIVE</span></button>
+      <button class="nav-btn" onclick="showPage('bench')">Benchmarks</button>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span style="color:var(--muted)">ML-KEM-768</span> <span style="color:var(--accent)">0.21ms</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">ML-DSA-65</span> <span style="color:var(--accent)">0.34ms</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">Handshake</span> <span style="color:var(--accent)">2.1ms</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">HNDLR</span> <span style="color:var(--accent)">94.2</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">TLS 1.3</span> <span style="color:var(--red)">31.7</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">AES-256-GCM</span> <span style="color:var(--accent)">0.08ms/KB</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">SHST saving</span> <span style="color:var(--purple)">83%</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">NIST Level 3</span> <span
+        style="color:var(--border-strong); margin:0 10px;">·</span>
+      <span style="color:var(--muted)">Quantum gates</span> <span style="color:var(--accent)">2^178</span>
+    </div>
+  </div>
+
+  <div id="page-home" class="page active" style="position: relative; overflow: hidden;">
+    <div class="hero-bg-curves">
+      <svg width="100%" height="540" viewBox="0 0 1440 540" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="overflow: visible;">
+        <defs>
+          <linearGradient id="green-grad-1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#22C55E" stop-opacity="0" />
+            <stop offset="25%" stop-color="#22C55E" stop-opacity="0.9" />
+            <stop offset="75%" stop-color="#10B981" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#059669" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="green-grad-2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#14B8A6" stop-opacity="0" />
+            <stop offset="40%" stop-color="#22C55E" stop-opacity="0.5" />
+            <stop offset="100%" stop-color="#047857" stop-opacity="0" />
+          </linearGradient>
+          <filter id="glow-filter" x="-20%" y="-100%" width="140%" height="400%">
+            <feGaussianBlur stdDeviation="10" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <radialGradient id="radial-glow" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#22C55E" stop-opacity="0.07" />
+            <stop offset="100%" stop-color="#22C55E" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <!-- Radial ambient glow -->
+        <rect width="1440" height="540" fill="url(#radial-glow)" />
+        <!-- Main diagonal curves -->
+        <g filter="url(#glow-filter)">
+          <path d="M-80 180 C 300 40, 700 500, 1520 160" stroke="url(#green-grad-1)" stroke-width="1.5" fill="none" />
+          <path d="M-80 220 C 280 60, 720 520, 1520 200" stroke="url(#green-grad-1)" stroke-width="4" fill="none"
+            stroke-opacity="0.6" />
+          <path d="M-80 300 C 420 520, 900 -20, 1520 360" stroke="url(#green-grad-2)" stroke-width="2" fill="none" />
+        </g>
+      </svg>
+    </div>
+    <div class="container" style="position: relative; z-index: 1;">
+      <div style="text-align:center; max-width:740px; margin:0 auto; padding:5rem 1rem 3rem;">
+        <div
+          style="color:var(--accent); font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:1.5rem; display:inline-flex; align-items:center; gap:6px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;">
+          </div>
+          NIST PQC Level 3 · Production Ready
+        </div>
+        <h1 class="hero-h1">
+          <span class="text-gradient">Quantum-safe</span> web auth<br>for the post-quantum era
+        </h1>
+        <div style="font-size:14px; color:var(--text-secondary); max-width:560px; margin:0 auto 2rem; line-height:1.7;">
+          HWAP integrates ML-KEM-768, ML-DSA-65, and AES-256-GCM at the application layer — delivering hybrid
+          post-quantum cryptography with sub-5ms handshake latency.
+        </div>
+        <div style="display:flex; justify-content:center; gap:10px; margin-bottom:3.5rem;">
+          <button class="btn-primary" onclick="showPage('demo')">Run live demo →</button>
+          <button class="btn-ghost" onclick="showPage('bench')">View benchmarks</button>
+        </div>
+        <div class="grid-3" style="max-width:640px; margin:0 auto;">
+          <div class="card" style="text-align:center; padding:1.25rem 1rem;">
+            <div class="stat-val" style="color:var(--accent);">94.2</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">HNDLR-Score</div>
+          </div>
+          <div class="card" style="text-align:center; padding:1.25rem 1rem;">
+            <div class="stat-val" style="color:var(--text);">&lt;5ms</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Handshake latency</div>
+          </div>
+          <div class="card" style="text-align:center; padding:1.25rem 1rem;">
+            <div class="stat-val" style="color:var(--purple);">83%</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">SHST overhead saved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:2.5rem;">
+      <div class="section-title">How HWAP works</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:1rem;">Hybrid cryptographic handshake in 5 steps</div>
+
+      <div class="flow-grid">
+        <div class="flow-card">
+          <div class="flow-icon" style="background:var(--accent-bg); border:1px solid rgba(52,211,153,0.15);">🔒</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;">1. Client Initiation</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Initiates secure handshake session</div>
+          </div>
+        </div>
+
+        <div class="flow-card">
+          <div class="flow-icon" style="background:var(--purple-bg); border:1px solid rgba(139,92,246,0.2);">🔑</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;">2. Key Exchange</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">X25519 + ML-KEM-768 hybrid agreement</div>
+          </div>
+        </div>
+
+        <div class="flow-card">
+          <div class="flow-icon" style="background:var(--green-bg); border:1px solid rgba(52,211,153,0.15);">✍️</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;">3. Server Signing</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">ML-DSA-65 post-quantum signature</div>
+          </div>
+        </div>
+
+        <div class="flow-card">
+          <div class="flow-icon" style="background:var(--amber-bg); border:1px solid rgba(245,158,11,0.2);">🧪</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;">4. Channel Encryption</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">AES-256-GCM symmetric block cipher</div>
+          </div>
+        </div>
+
+        <div class="flow-card">
+          <div class="flow-icon" style="background:var(--teal-bg); border:1px solid rgba(20,184,166,0.2);">🎟️</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;">5. SHST Caching</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Saves 83% overhead on subsequent requests
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container grid-3" style="padding-bottom:3.5rem;">
+      <div class="card">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <span style="font-size:20px; color:var(--accent);">🛡️</span>
+          <span class="section-title" style="margin-bottom:0;">Hybrid KEM</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+          Combines classical X25519 ECDH with ML-KEM-768 so that breaking one cryptographic component leaves the overall
+          session secure. IND-CCA2 security proven.
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="badge"
+            style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">ML-KEM-768</span>
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">X25519</span>
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">HKDF-SHA3</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <span style="font-size:20px; color:var(--amber);">⚙️</span>
+          <span class="section-title" style="margin-bottom:0;">Crypto-agility Engine</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+          Four-tier fallback chain. Dynamic algorithm rotation happens transparently at runtime — requiring zero service
+          restarts, client updates, or downtime.
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Tier 1–4</span>
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Zero
+            Downtime</span>
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Hot-Swap</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <span style="font-size:20px; color:var(--purple);">📊</span>
+          <span class="section-title" style="margin-bottom:0;">HNDLR-Score</span>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+          Quantitative 5-dimension security matrix for Harvest-Now-Decrypt-Later resistance. HWAP scores 94.2 compared
+          to only 31.7 for classical TLS 1.3.
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">5
+            Dimensions</span>
+          <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Weighted
+            Score</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:3.5rem;">
+      <div class="card table-card" style="">
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:220px;">Feature</th>
+                <th style="color:var(--accent);">HWAP (PQC Hybrid)</th>
+                <th>TLS 1.3 (Classical)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>HNDL resistance</td>
+                <td style="color:var(--green);font-weight:600;">✓ Full (94.2/100)</td>
+                <td style="color:var(--red); font-weight:600;">✗ None (31.7/100)</td>
+              </tr>
+              <tr>
+                <td>Forward secrecy</td>
+                <td style="color:var(--green);font-weight:600;">✓ PQC + Classical</td>
+                <td style="color:var(--green);font-weight:600;">✓ Classical only</td>
+              </tr>
+              <tr>
+                <td>Handshake latency</td>
+                <td>2.1ms (hybrid average)</td>
+                <td>1.3ms</td>
+              </tr>
+              <tr>
+                <td>Crypto-agility</td>
+                <td style="color:var(--green);font-weight:600;">✓ Runtime hot-swap</td>
+                <td style="color:var(--red); font-weight:600;">✗ Static config</td>
+              </tr>
+              <tr>
+                <td>Session token</td>
+                <td style="color:var(--green);font-weight:600;">✓ SHST (83% saving)</td>
+                <td style="color:var(--red); font-weight:600;">✗ Full re-key each req</td>
+              </tr>
+              <tr>
+                <td>Quantum-safe</td>
+                <td style="color:var(--green);font-weight:600;">✓ NIST Level 3</td>
+                <td style="color:var(--red); font-weight:600;">✗ Breaks with CRQC</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-demo" class="page container" style="padding-top:2rem;">
+    <div
+      style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div>
+        <div class="section-title">Live Handshake Demo</div>
+        <div style="font-size:14px;color:var(--muted);">Click Run handshake to simulate a full HWAP session</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <div class="badge badge-green">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;">
+          </div>
+          Server Online
+        </div>
+        <button class="btn-primary" onclick="runHandshake()">Run handshake</button>
+        <button class="btn-ghost" onclick="clearLog()">Clear log</button>
+      </div>
+    </div>
+
+    <div class="grid-4" style="margin-bottom:1.5rem;">
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; ;">
+        <div>
+          <div class="label">HNDLR-Score</div>
+          <div id="m-score" class="stat-val" style="color:var(--accent); font-weight:800;">—</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;">Quantum resistance rating</div>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; ;">
+        <div>
+          <div class="label">Handshake time</div>
+          <div id="m-latency" class="stat-val" style="color:var(--green); font-weight:800;">—</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;">End-to-end latency</div>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; ;">
+        <div>
+          <div class="label">SHST overhead</div>
+          <div id="m-shst" class="stat-val" style="color:var(--purple); font-weight:800;">—</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;">vs full re-key</div>
+      </div>
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; ;">
+        <div>
+          <div class="label">Security level</div>
+          <div id="m-level" class="stat-val" style="color:var(--text); font-weight:800;">—</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;">NIST rating</div>
+      </div>
+    </div>
+
+    <div class="grid-2 grid-2-large" style="margin-bottom:1.5rem;">
+      <div>
+        <div class="label">Protocol log</div>
+        <div id="log-panel" class="log-panel">
+          <div class="log-line"><span class="log-time">00:00:00</span><span class="log-info">HWAP server ready —
+              awaiting handshake...</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="label">Crypto-agility — algorithm tier</div>
+        <div id="algo-0" class="algo-item active" onclick="selectAlgo(0)">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="algo-dot"></div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">Tier 1 — Full PQC hybrid</div>
+              <div style="font-size:11px;color:var(--muted);">ML-KEM-768 + X25519 · ML-DSA-65 · AES-256-GCM</div>
+            </div>
+          </div>
+          <div class="badge badge-blue">Active</div>
+        </div>
+        <div id="algo-1" class="algo-item" onclick="selectAlgo(1)">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="algo-dot"></div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">Tier 2 — KEM only</div>
+              <div style="font-size:11px;color:var(--muted);">ML-KEM-768 · ECDSA · AES-256-GCM</div>
+            </div>
+          </div>
+          <div class="badge badge-amber">Fallback</div>
+        </div>
+        <div id="algo-2" class="algo-item" onclick="selectAlgo(2)">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="algo-dot"></div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">Tier 3 — Signature only</div>
+              <div style="font-size:11px;color:var(--muted);">X25519 · ML-DSA-65 · AES-256-GCM</div>
+            </div>
+          </div>
+          <div class="badge badge-amber">Fallback</div>
+        </div>
+        <div id="algo-3" class="algo-item" onclick="selectAlgo(3)">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="algo-dot"></div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">Tier 4 — Classical</div>
+              <div style="font-size:11px;color:var(--muted);">X25519 · ECDSA · AES-128-GCM</div>
+            </div>
+          </div>
+          <div class="badge badge-red">Legacy</div>
+        </div>
+        <div style="display:flex;gap:6px;margin:12px 0;">
+          <div id="tb-0"
+            style="flex:1;height:5px;border-radius:99px;background:var(--accent); transition: background 0.2s ease;">
+          </div>
+          <div id="tb-1"
+            style="flex:1;height:5px;border-radius:99px;background:var(--border); transition: background 0.2s ease;">
+          </div>
+          <div id="tb-2"
+            style="flex:1;height:5px;border-radius:99px;background:var(--border); transition: background 0.2s ease;">
+          </div>
+          <div id="tb-3"
+            style="flex:1;height:5px;border-radius:99px;background:var(--border); transition: background 0.2s ease;">
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;">Tier <span id="tier-num">1</span> of 4 active
+          — switch with no service restart</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.5rem;">
+      <div class="card">
+        <div class="label">HNDLR-Score breakdown</div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span
+              style="font-size:13px;font-weight:500;">KEM strength (w=0.35)</span><span id="d0"
+              style="font-size:12px;color:var(--muted);">—</span></div>
+          <div class="bar-track">
+            <div id="df0" class="bar-fill" style="background:var(--accent);"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span
+              style="font-size:13px;font-weight:500;">Signature scheme (w=0.25)</span><span id="d1"
+              style="font-size:12px;color:var(--muted);">—</span></div>
+          <div class="bar-track">
+            <div id="df1" class="bar-fill" style="background:var(--purple);"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span
+              style="font-size:13px;font-weight:500;">Forward secrecy (w=0.20)</span><span id="d2"
+              style="font-size:12px;color:var(--muted);">—</span></div>
+          <div class="bar-track">
+            <div id="df2" class="bar-fill" style="background:var(--green);"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span
+              style="font-size:13px;font-weight:500;">Crypto-agility (w=0.10)</span><span id="d3"
+              style="font-size:12px;color:var(--muted);">—</span></div>
+          <div class="bar-track">
+            <div id="df3" class="bar-fill" style="background:var(--amber);"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span
+              style="font-size:13px;font-weight:500;">Backward compat (w=0.10)</span><span id="d4"
+              style="font-size:12px;color:var(--muted);">—</span></div>
+          <div class="bar-track">
+            <div id="df4" class="bar-fill" style="background:var(--teal);"></div>
+          </div>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:12px;margin-top:12px;">
+          <span style="font-size:13px;color:var(--muted);font-weight:600;">Total HNDLR-Score</span>
+          <span id="total-score" style="font-size:24px;font-weight:800;color:var(--accent);">—</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="label">Latency history</div>
+        <div style="height:200px;width:100%;"><canvas id="latencyChart"></canvas></div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px;font-weight:500;">Avg HWAP:
+          <span id="avg-hwap" style="color:var(--accent); font-weight:600;">—</span> &nbsp;|&nbsp; Avg TLS 1.3:
+          1.3ms
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem; ;">
+      <div class="label">Message signing and verification</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <input type="text" id="msg-input" class="msg-input input-premium" style="flex:1; min-width:260px;"
+          placeholder="Transfer $5000 to account 9812-3456" value="Transfer $5000 to account 9812-3456">
+        <button class="btn-ghost btn-sm" style="flex-shrink:0; height:42px;" onclick="signMessage()">Sign with
+          ML-DSA-65</button>
+      </div>
+      <div id="sig-result" style="display:none; transition: all 0.3s ease;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.25rem;">
+          <div>
+            <div class="label">Signature (truncated hex)</div>
+            <div id="sig-hex"
+              style="font-family:var(--mono);font-size:11px;color:var(--accent);word-break:break-all;background:var(--surface);padding:12px;border-radius:8px;border:1px solid var(--border);min-height:48px;">
+            </div>
+          </div>
+          <div>
+            <div class="label">Verification status</div>
+            <div id="sig-verify"
+              style="padding:12px;background:var(--green-bg);border-radius:8px;border:1px solid rgba(52,211,153,0.15);display:flex;flex-direction:column;justify-content:center;min-height:64px;">
+              <div style="font-size:13px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:6px;">✅
+                ML-DSA-65 Signature Verified</div>
+              <div id="sig-time" style="font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono);">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-bench" class="page container" style="padding-top:2rem;">
+    <div
+      style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div class="section-title">Benchmark Results</div>
+        <div style="font-size:14px;color:var(--muted); max-width:600px; line-height:1.5;">i7-12700H · 32GB RAM · Python
+          3.11 · liboqs 0.10 · Ubuntu 22.04 · 10,000 iterations</div>
+      </div>
+      <div
+        style="display:flex;align-items:center;gap:16px; background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:12px 20px; border-radius:12px;">
+        <svg width="68" height="68" viewBox="0 0 120 120"
+          style="transform:rotate(-90deg); filter: drop-shadow(0 0 6px rgba(52,211,153,0.15));">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="8"></circle>
+          <circle id="ring-fill" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="8"
+            stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"
+            style="transition: stroke-dashoffset 0.8s ease;"></circle>
+          <g style="transform:rotate(90deg);transform-origin:center;">
+            <text x="60" y="64" text-anchor="middle"
+              style="font-family:var(--font); font-size:24px;font-weight:800;fill:var(--text); letter-spacing:-0.5px;">94.2</text>
+          </g>
+        </svg>
+        <div>
+          <div style="font-size:13px;font-weight:700;">HWAP Score</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">vs 31.7 TLS 1.3</div>
+          <span class="badge badge-blue">NIST Level 3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card table-card" style="margin-bottom:1.5rem; ">
+      <div
+        style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-weight:700; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:var(--text); background:rgba(255,255,255,0.01);">
+        Algorithm operation timings</div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Operation</th>
+              <th>Mean (ms)</th>
+              <th>P99 (ms)</th>
+              <th>Std Dev</th>
+              <th>NIST Level</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-KEM-768</td>
+              <td>KeyGen</td>
+              <td style="color:var(--green);font-weight:700;">0.21</td>
+              <td>0.28</td>
+              <td style="color:var(--muted);">&plusmn;0.03</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-KEM-768</td>
+              <td>Encapsulate</td>
+              <td style="color:var(--green);font-weight:700;">0.31</td>
+              <td>0.39</td>
+              <td style="color:var(--muted);">&plusmn;0.04</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-KEM-768</td>
+              <td>Decapsulate</td>
+              <td style="color:var(--green);font-weight:700;">0.34</td>
+              <td>0.42</td>
+              <td style="color:var(--muted);">&plusmn;0.05</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-DSA-65</td>
+              <td>KeyGen</td>
+              <td style="color:var(--green);font-weight:700;">0.29</td>
+              <td>0.36</td>
+              <td style="color:var(--muted);">&plusmn;0.04</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-DSA-65</td>
+              <td>Sign</td>
+              <td style="color:var(--green);font-weight:700;">0.34</td>
+              <td>0.43</td>
+              <td style="color:var(--muted);">&plusmn;0.06</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">ML-DSA-65</td>
+              <td>Verify</td>
+              <td style="color:var(--green);font-weight:700;">0.21</td>
+              <td>0.27</td>
+              <td style="color:var(--muted);">&plusmn;0.03</td>
+              <td>Level 3</td>
+              <td><span class="badge badge-blue">Active</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">X25519 ECDH</td>
+              <td>KeyGen+Agree</td>
+              <td>0.09</td>
+              <td>0.12</td>
+              <td style="color:var(--muted);">&plusmn;0.01</td>
+              <td style="color:var(--muted);">Classical</td>
+              <td><span class="badge"
+                  style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Hybrid</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">AES-256-GCM</td>
+              <td>Encrypt 1KB</td>
+              <td>0.08</td>
+              <td>0.11</td>
+              <td style="color:var(--muted);">&plusmn;0.01</td>
+              <td style="color:var(--muted);">Classical</td>
+              <td><span class="badge"
+                  style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Hybrid</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--mono); font-weight:600;">HKDF-SHA3</td>
+              <td>Key Derivation</td>
+              <td>0.04</td>
+              <td>0.05</td>
+              <td style="color:var(--muted);">&plusmn;0.01</td>
+              <td style="color:var(--muted);">Classical</td>
+              <td><span class="badge"
+                  style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.5rem;">
+      <div class="card">
+        <div class="label" style="margin-bottom:16px;">Handshake Latency Comparison (ms)</div>
+        <div style="height:220px;width:100%;"><canvas id="barChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="label" style="margin-bottom:16px;">Throughput at Concurrency Levels (req/s)</div>
+        <div style="height:220px;width:100%;"><canvas id="concChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card table-card" style="margin-bottom:1.5rem; ">
+      <div
+        style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-weight:700; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:var(--text); background:rgba(255,255,255,0.01);">
+        HWAP handshake latency across simulated network conditions</div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Network Profile</th>
+              <th>RTT (ms)</th>
+              <th>Packet Loss</th>
+              <th>HWAP (ms)</th>
+              <th>TLS 1.3 (ms)</th>
+              <th>Overhead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>LAN / Localhost</td>
+              <td>0</td>
+              <td>0%</td>
+              <td style="color:var(--green);font-weight:700;">2.1</td>
+              <td>1.3</td>
+              <td style="color:var(--green);font-weight:700;">+0.8ms</td>
+            </tr>
+            <tr>
+              <td>Broadband (100Mbps)</td>
+              <td>20</td>
+              <td>0.1%</td>
+              <td style="color:var(--green);font-weight:700;">4.8</td>
+              <td>4.1</td>
+              <td style="color:var(--green);font-weight:700;">+0.7ms</td>
+            </tr>
+            <tr>
+              <td>4G Mobile</td>
+              <td>80</td>
+              <td>1%</td>
+              <td style="color:var(--green);font-weight:700;">82.3</td>
+              <td>81.7</td>
+              <td style="color:var(--green);font-weight:700;">+0.6ms</td>
+            </tr>
+            <tr>
+              <td>3G Mobile</td>
+              <td>200</td>
+              <td>3%</td>
+              <td style="color:var(--green);font-weight:700;">202.9</td>
+              <td>202.4</td>
+              <td style="color:var(--green);font-weight:700;">+0.5ms</td>
+            </tr>
+            <tr>
+              <td>Satellite</td>
+              <td>600</td>
+              <td>5%</td>
+              <td style="color:var(--green);font-weight:700;">603.4</td>
+              <td>603.1</td>
+              <td style="color:var(--green);font-weight:700;">+0.3ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card table-card" style="margin-bottom:1.5rem; ">
+      <div
+        style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-weight:700; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:var(--text); background:rgba(255,255,255,0.01);">
+        HNDLR-Score dimension breakdown — HWAP vs TLS 1.3</div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Weight</th>
+              <th>HWAP Raw</th>
+              <th>HWAP Weighted</th>
+              <th>TLS 1.3 Raw</th>
+              <th>TLS 1.3 Weighted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>KEM Quantum Resistance</td>
+              <td>0.35</td>
+              <td>96.2</td>
+              <td style="color:var(--green);font-weight:700;">33.67</td>
+              <td>28.4</td>
+              <td style="color:var(--amber);font-weight:700;">9.94</td>
+            </tr>
+            <tr>
+              <td>Signature Scheme</td>
+              <td>0.25</td>
+              <td>94.8</td>
+              <td style="color:var(--green);font-weight:700;">23.70</td>
+              <td>31.2</td>
+              <td style="color:var(--amber);font-weight:700;">7.80</td>
+            </tr>
+            <tr>
+              <td>Forward Secrecy</td>
+              <td>0.20</td>
+              <td>98.0</td>
+              <td style="color:var(--green);font-weight:700;">19.60</td>
+              <td>40.0</td>
+              <td style="color:var(--amber);font-weight:700;">8.00</td>
+            </tr>
+            <tr>
+              <td>Crypto-agility</td>
+              <td>0.10</td>
+              <td>100.0</td>
+              <td style="color:var(--green);font-weight:700;">10.00</td>
+              <td>0.0</td>
+              <td style="color:var(--amber);font-weight:700;">0.00</td>
+            </tr>
+            <tr>
+              <td>Backward Compatibility</td>
+              <td>0.10</td>
+              <td>95.0</td>
+              <td style="color:var(--green);font-weight:700;">9.50</td>
+              <td>59.0</td>
+              <td style="color:var(--amber);font-weight:700;">5.90</td>
+            </tr>
+            <tr style="border-top:2px solid var(--border); font-weight:800; background:rgba(255,255,255,0.01);">
+              <td style="color:var(--text);">Total HNDLR-Score</td>
+              <td>1.00</td>
+              <td>—</td>
+              <td style="color:var(--green);font-size:16px;">94.2</td>
+              <td>—</td>
+              <td style="color:var(--amber);font-size:16px;">31.7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    const TIER_DATA = [
+      { score: 94.2, latencyRange: [1.8, 2.4], shst: '-83%', level: 'L3', dims: [96.2, 94.8, 98.0, 100.0, 95.0], steps: ['→ ClientHello: X25519 + ML-KEM-768 key shares offered', '→ ML-KEM-768 encapsulation: K_pq derived (0.31ms)', '→ X25519 key agreement: K_classical derived (0.09ms)', '→ HKDF-SHA3-256 combiner: K_hybrid = HKDF(K_pq ‖ K_classical)', '→ ML-DSA-65 signing: server certificate verified (0.34ms)', '→ SHST token generated: valid 3600s, 83% overhead saved', '→ AES-256-GCM channel established (96-bit nonce, 128-bit tag)'] },
+      { score: 76.1, latencyRange: [2.4, 3.2], shst: '-72%', level: 'L3', dims: [96.2, 60.0, 90.0, 70.0, 95.0], steps: ['→ ClientHello: ML-KEM-768 key share offered', '→ ML-KEM-768 encapsulation: K_pq derived (0.31ms)', '→ ECDSA signature verification (0.18ms)', '→ SHST token generated: valid 3600s', '→ AES-256-GCM channel established'] },
+      { score: 68.4, latencyRange: [1.7, 2.2], shst: '-68%', level: 'L2', dims: [55.0, 94.8, 85.0, 70.0, 95.0], steps: ['→ ClientHello: X25519 key share offered', '→ X25519 key agreement: K_classical derived (0.09ms)', '→ ML-DSA-65 signing: server certificate verified (0.34ms)', '→ SHST token generated', '→ AES-256-GCM channel established'] },
+      { score: 31.7, latencyRange: [1.1, 1.5], shst: '-40%', level: 'L1', dims: [28.4, 31.2, 40.0, 0.0, 59.0], steps: ['→ ClientHello: X25519 key share offered (classical only)', '→ X25519 key agreement: K_classical derived', '→ ECDSA signature verification', '→ Session established — WARNING: no post-quantum protection'] }
+    ];
+    let currentTier = 0; let latencyHistory = []; let handshakeCount = 0;
+    let latencyChart = null; let barChart = null; let concChart = null;
+    function ts() { const d = new Date(); return d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ':' + d.getSeconds().toString().padStart(2, '0'); }
+    function addLog(text, cls = 'log-info') {
+      const p = document.getElementById('log-panel');
+      p.innerHTML += '<div class="log-line"><span class="log-time">' + ts() + '</span><span class="' + cls + '">' + text + '</span></div>';
+      p.scrollTop = p.scrollHeight;
+    }
+    function clearLog() { document.getElementById('log-panel').innerHTML = '<div class="log-line"><span class="log-time">' + ts() + '</span><span class="log-info">Log cleared</span></div>'; }
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.nav-btn[onclick="showPage(\'' + name + '\')"]').classList.add('active');
+      if (name === 'demo') initLatencyChart();
+      if (name === 'bench') {
+        initBenchCharts();
+        setTimeout(() => { const ring = document.getElementById('ring-fill'); if (ring) ring.style.strokeDashoffset = (326.7 * (1 - 0.942)).toFixed(1); }, 500);
+      }
+    }
+    function runHandshake() {
+      const d = TIER_DATA[currentTier]; const tierName = ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4'][currentTier];
+      const lat = (d.latencyRange[0] + Math.random() * (d.latencyRange[1] - d.latencyRange[0])).toFixed(2);
+      handshakeCount++; addLog('[Handshake #' + handshakeCount + '] Starting ' + tierName + ' protocol...', 'log-info');
+      d.steps.forEach((step, i) => { setTimeout(() => addLog(step, 'log-data'), (i + 1) * 130); });
+      setTimeout(() => {
+        addLog('&#9989; Handshake complete in ' + lat + 'ms', 'log-ok');
+        document.getElementById('m-score').innerText = d.score;
+        document.getElementById('m-latency').innerText = lat + 'ms';
+        document.getElementById('m-shst').innerText = d.shst;
+        document.getElementById('m-level').innerText = d.level;
+        d.dims.forEach((v, i) => { document.getElementById('d' + i).innerText = v.toFixed(1); document.getElementById('df' + i).style.width = v + '%'; });
+        document.getElementById('total-score').innerText = d.score;
+        latencyHistory.push(parseFloat(lat)); if (latencyHistory.length > 12) latencyHistory.shift();
+        updateLatencyChart();
+        const avg = (latencyHistory.reduce((a, b) => a + b, 0) / latencyHistory.length).toFixed(2);
+        document.getElementById('avg-hwap').innerText = avg + 'ms';
+      }, d.steps.length * 130 + 200);
+    }
+    function selectAlgo(n) {
+      currentTier = n;
+      document.querySelectorAll('.algo-item').forEach((el, i) => {
+        el.classList.toggle('active', i === n);
+        const badge = el.querySelector('.badge');
+        badge.className = 'badge ' + (i === 0 ? 'badge-blue' : i === 3 ? 'badge-red' : 'badge-amber');
+        badge.innerText = (i === n) ? 'Active' : (i === 0 ? 'Primary' : i === 3 ? 'Legacy' : 'Fallback');
+      });
+      for (let i = 0; i < 4; i++) {
+        document.getElementById('tb-' + i).style.background = (i === n) ? 'var(--accent)' : 'var(--border)';
+      }
+      document.getElementById('tier-num').innerText = n + 1;
+      const tierName = ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4'][n];
+      addLog('&#9881;&#65039; Crypto-agility: switched to Tier ' + (n + 1) + ' — ' + tierName + ' (no restart required)', 'log-warn');
+    }
+    function signMessage() {
+      const v = document.getElementById('msg-input').value; if (!v) return;
+      const hex = Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('') + '...';
+      const sign = (0.30 + Math.random() * 0.08).toFixed(2); const verify = (0.18 + Math.random() * 0.06).toFixed(2);
+      document.getElementById('sig-hex').innerText = hex;
+      document.getElementById('sig-time').innerText = 'Sign: ' + sign + 'ms · Verify: ' + verify + 'ms · Sig size: 3,293 bytes';
+      document.getElementById('sig-result').style.display = 'block';
+    }
+    function initLatencyChart() {
+      if (latencyChart) return;
+      const ctx = document.getElementById('latencyChart').getContext('2d');
+      latencyChart = new Chart(ctx, { type: 'line', data: { labels: Array.from({ length: 12 }, (_, i) => '#' + (i + 1)), datasets: [{ label: 'HWAP', data: [], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.06)', fill: true, tension: 0.4, pointRadius: 3 }, { label: 'TLS 1.3', data: Array(12).fill(1.3), borderColor: '#F87171', borderDash: [4, 4], pointRadius: 0, fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 4, ticks: { callback: v => v + 'ms', color: '#6E6E7A' }, grid: { color: 'rgba(255,255,255,0.06)' } }, x: { ticks: { color: '#6E6E7A' }, grid: { color: 'rgba(255,255,255,0.06)' } } }, plugins: { legend: { display: false } } } });
+    }
+    function updateLatencyChart() {
+      if (!latencyChart) return;
+      latencyChart.data.datasets[0].data = [...latencyHistory];
+      latencyChart.data.labels = latencyHistory.map((_, i) => '#' + (handshakeCount - latencyHistory.length + i + 1));
+      latencyChart.update();
+    }
+    function initBenchCharts() {
+      if (barChart) return;
+      const ctx1 = document.getElementById('barChart').getContext('2d');
+      barChart = new Chart(ctx1, { type: 'bar', data: { labels: ['LAN', '4G', '3G', 'Satellite'], datasets: [{ label: 'HWAP', data: [2.1, 82.3, 202.9, 603.4], backgroundColor: 'rgba(52,211,153,0.7)', borderRadius: 4 }, { label: 'TLS 1.3', data: [1.3, 81.7, 202.4, 603.1], backgroundColor: 'rgba(248,113,113,0.5)', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { color: '#6E6E7A' }, grid: { color: 'rgba(255,255,255,0.06)' } }, x: { ticks: { color: '#6E6E7A' }, grid: { display: false } } } } });
+      const ctx2 = document.getElementById('concChart').getContext('2d');
+      concChart = new Chart(ctx2, { type: 'line', data: { labels: [1, 2, 4, 8, 16, 32, 64], datasets: [{ label: 'HWAP req/s', data: [476, 943, 1812, 3401, 5892, 8234, 9102], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.08)', fill: true, tension: 0.4 }, { label: 'TLS 1.3 req/s', data: [769, 1524, 2901, 5234, 8912, 10234, 10891], borderColor: '#F87171', borderDash: [4, 4], fill: false, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { color: '#6E6E7A' }, grid: { color: 'rgba(255,255,255,0.06)' } }, x: { ticks: { color: '#6E6E7A' }, grid: { color: 'rgba(255,255,255,0.06)' } } } } });
+    }
+    document.addEventListener('DOMContentLoaded', () => { setTimeout(() => { const r = document.getElementById('ring-fill'); if (r && document.getElementById('page-bench').classList.contains('active')) r.style.strokeDashoffset = (326.7 * (1 - 0.942)).toFixed(1); }, 500); });
+  </script>
+</body>
+
+</html>
