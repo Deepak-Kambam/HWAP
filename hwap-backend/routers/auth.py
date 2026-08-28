@@ -6,6 +6,7 @@ import time
 import os
 from models.schemas import UserRegister, UserResponse, GenerateKeysRequest, GenerateKeysResponse
 from keystore import store_private_key
+from routers import audit
 
 try:
     import oqs
@@ -22,7 +23,14 @@ keys_router = APIRouter(prefix="/api/generate-keys")
 @auth_router.post("/register", response_model=UserResponse)
 async def register(req: UserRegister):
     """Registers a user."""
-    return {"user_id": str(uuid.uuid4()), "created_at": datetime.utcnow().isoformat()}
+    user_id = str(uuid.uuid4())
+    audit.add_event(
+        user=f"{req.name} — {user_id[:8].upper()}",
+        op="Registration",
+        algo="—",
+        result="Success"
+    )
+    return {"user_id": user_id, "created_at": datetime.utcnow().isoformat()}
 
 @keys_router.post("/kem", response_model=GenerateKeysResponse)
 async def generate_kem_keys(req: GenerateKeysRequest):
@@ -35,12 +43,19 @@ async def generate_kem_keys(req: GenerateKeysRequest):
     else:
         pub = os.urandom(1184)
         priv = os.urandom(32)
-    
+
     store_private_key(req.user_id, "ML-KEM-768", priv)
+    keygen_ms = round((time.perf_counter() - start) * 1000, 2)
+    audit.add_event(
+        user=req.user_id[:20],
+        op="Key Generation",
+        algo="ML-KEM-768",
+        result="Success"
+    )
     return {
         "public_key_hex": pub.hex(),
         "algorithm": "ML-KEM-768",
-        "keygen_ms": round((time.perf_counter() - start) * 1000, 2)
+        "keygen_ms": keygen_ms
     }
 
 @keys_router.post("/dsa", response_model=GenerateKeysResponse)
@@ -54,10 +69,17 @@ async def generate_dsa_keys(req: GenerateKeysRequest):
     else:
         pub = os.urandom(1952)
         priv = os.urandom(32)
-        
+
     store_private_key(req.user_id, "ML-DSA-65", priv)
+    keygen_ms = round((time.perf_counter() - start) * 1000, 2)
+    audit.add_event(
+        user=req.user_id[:20],
+        op="Key Generation",
+        algo="ML-DSA-65",
+        result="Success"
+    )
     return {
         "public_key_hex": pub.hex(),
         "algorithm": "ML-DSA-65",
-        "keygen_ms": round((time.perf_counter() - start) * 1000, 2)
+        "keygen_ms": keygen_ms
     }

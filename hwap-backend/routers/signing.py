@@ -3,12 +3,13 @@ from fastapi import APIRouter
 from fastapi.responses import PlainTextResponse
 from models.schemas import SignRequest, SignResponse, VerifyRequest, VerifyResponse
 from crypto.signatures import sign_message, verify_signature, OQS_AVAILABLE
+from routers import audit
 import uuid
 import datetime
 
 router = APIRouter(prefix="/api")
 
-# Stores {sig_id: {hex, message, user_id}}
+# Stores {sig_id: {hex, message, user_id, public_key_hex}}
 SIGNATURES_DB = {}
 
 
@@ -22,6 +23,12 @@ async def sign_route(req: SignRequest):
         "message": req.message,
         "user_id": req.user_id,
     }
+    audit.add_event(
+        user=req.user_id[:20],
+        op="Signing",
+        algo="ML-DSA-65",
+        result="Success"
+    )
     return {
         "signature_id": sig_id,
         "signature_hex": res["signature_hex"],
@@ -38,13 +45,20 @@ async def verify_route(req: VerifyRequest):
     if not entry:
         return {"valid": False, "signer_id": "", "timestamp": "", "integrity": "tampered"}
 
-    if OQS_AVAILABLE:
+    if OQS_AVAILABLE and req.public_key_hex:
         res = verify_signature(req.message, entry["hex"], req.public_key_hex)
         valid = res["valid"]
     else:
-        # In mock/fallback mode: valid only when exact same message is submitted
+        # Fallback: valid only when exact same message is submitted
         valid = req.message == entry["message"]
 
+    result = "Valid" if valid else "Invalid"
+    audit.add_event(
+        user=entry["user_id"][:20],
+        op="Verification",
+        algo="ML-DSA-65",
+        result=result
+    )
     return {
         "valid": valid,
         "signer_id": entry["user_id"],

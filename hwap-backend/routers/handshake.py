@@ -4,6 +4,7 @@ from models.schemas import HandshakeRequest, HandshakeResponse, SwitchTierReques
 from crypto.kem import run_hybrid_handshake
 from crypto.shst import generate_shst_token
 from state import set_active_tier
+from routers import audit
 import time
 import uuid
 
@@ -15,7 +16,15 @@ async def handshake(req: HandshakeRequest):
     res = run_hybrid_handshake(req.tier)
     algo = "ML-KEM-768 + X25519" if req.tier == 1 else "ML-KEM-768" if req.tier == 2 else "X25519" if req.tier == 3 else "X25519"
     sec_lvl = "Post-Quantum" if req.tier in (1, 2) else "Classical"
-    
+    tier_name = ["Tier 1 Hybrid", "Tier 2 KEM-only", "Tier 3 Sig-only", "Tier 4 Classical"][req.tier - 1]
+
+    audit.add_event(
+        user="session",
+        op="Handshake",
+        algo=tier_name,
+        result="Completed"
+    )
+
     return {
         "session_id": str(uuid.uuid4()),
         "algorithm": algo,
