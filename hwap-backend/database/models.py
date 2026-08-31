@@ -1,4 +1,4 @@
-"""SQLAlchemy models for HWAP backend."""
+"""SQLAlchemy models for QUANTA backend."""
 from datetime import datetime
 from sqlalchemy import String, Integer, ForeignKey, DateTime, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column

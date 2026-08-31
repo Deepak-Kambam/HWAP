@@ -1,4 +1,4 @@
-# HWAP — Hybrid Web Authentication Protocol
+# QUANTA — Quantum-Resistant Authenticated Network & Transaction Architecture
 
 > **Production-Grade Post-Quantum Cryptographic Authentication Protocol & Real-Time Interactive Dashboard**  
 > Integrated with **NIST FIPS 203 (ML-KEM-768)**, **NIST FIPS 204 (ML-DSA-65)**, **X25519 ECDH**, and **AES-256-GCM** to defeat *Harvest-Now-Decrypt-Later (HNDL)* quantum adversary attacks.
@@ -30,11 +30,11 @@
 
 ## 🛡️ Overview & Architecture
 
-**HWAP (Hybrid Web Authentication Protocol)** is an application-layer post-quantum cryptographic protocol designed to protect sensitive web communication today against future quantum computer decryption capabilities.
+**QUANTA (Quantum-Resistant Authenticated Network & Transaction Architecture)** is an application-layer post-quantum cryptographic protocol designed to protect sensitive web communication today against future quantum computer decryption capabilities.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          HWAP Interactive Frontend                          │
+│                         QUANTA Interactive Frontend                         │
 │               (Vanilla HTML5 / Modern CSS / ES6+ Fetch Client)              │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │ Real REST API (JSON)
@@ -104,8 +104,8 @@ sudo apt install -y build-essential cmake pkg-config libssl-dev python3 python3-
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Deepak-Kambam/HWAP.git
-cd HWAP/hwap-backend
+git clone https://github.com/Deepak-Kambam/QUANTA.git
+cd QUANTA/hwap-backend
 
 # 2. Create and activate a Python virtual environment
 python3 -m venv .venv
@@ -187,11 +187,11 @@ The interactive dashboard guides you through the full cryptographic lifecycle:
 
 ## 📊 HNDLR-Score Model
 
-HWAP evaluates protocol configurations using the **Harvest-Now-Decrypt-Later Resistance Score (HNDLR-Score)**:
+QUANTA evaluates protocol configurations using the **Harvest-Now-Decrypt-Later Resistance Score (HNDLR-Score)**:
 
 $$\text{HNDLR-Score} = \sum (w_i \times S_i)$$
 
-| Dimension | Weight ($w_i$) | Tier 1 (HWAP) | TLS 1.3 (Classical) |
+| Dimension | Weight ($w_i$) | Tier 1 (QUANTA) | TLS 1.3 (Classical) |
 |---|---|---|---|
 | KEM Quantum Resistance | 0.35 | 95.0 | 28.4 |
 | Signature Scheme Strength | 0.25 | 92.0 | 31.2 |
@@ -225,7 +225,7 @@ $$\text{HNDLR-Score} = \sum (w_i \times S_i)$$
 ## 📂 Project Directory Structure
 
 ```
-HWAP/
+QUANTA/
 ├── .gitignore                      # Git exclusion rules
 ├── LICENSE                         # MIT License
 ├── README.md                       # Master documentation
@@ -262,7 +262,7 @@ HWAP/
 
 Handshake latency measured across simulated round-trip conditions:
 
-| Network Scenario | Simulated RTT | HWAP (Hybrid PQC) | Classical TLS 1.3 | Delta |
+| Network Scenario | Simulated RTT | QUANTA (Hybrid PQC) | Classical TLS 1.3 | Delta |
 |---|---|---|---|---|
 | **LAN / Localhost** | 0ms | **2.1ms** | 1.3ms | +0.8ms |
 | **Broadband (100Mbps)** | 20ms | **4.8ms** | 4.1ms | +0.7ms |
@@ -270,7 +270,7 @@ Handshake latency measured across simulated round-trip conditions:
 | **3G Mobile** | 200ms | **202.9ms** | 202.4ms | +0.5ms |
 | **Satellite Link** | 600ms | **603.4ms** | 603.1ms | +0.3ms |
 
-> **Key Finding:** HWAP introduces less than **0.8ms** of computational overhead over classical TLS 1.3 while providing complete quantum safety against future decrypt-later threats.
+> **Key Finding:** QUANTA introduces less than **0.8ms** of computational overhead over classical TLS 1.3 while providing complete quantum safety against future decrypt-later threats.
 
 ---
 

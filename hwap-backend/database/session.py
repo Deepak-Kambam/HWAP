@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from database.models import Base
 
 # Supports fallback to SQLite, or reads DATABASE_URL for Postgres (Render)
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./hwap.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./quanta.db")
 
 # Convert legacy postgres:// to postgresql:// required by SQLAlchemy 1.4+
 if DATABASE_URL.startswith("postgres://"):

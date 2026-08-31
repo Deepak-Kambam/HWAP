@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HWAP Protocol Demo</title>
+  <title>QUANTA Protocol Demo</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -600,7 +600,7 @@
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
-      H<span style="color:var(--accent)">W</span>AP
+      QUAN<span style="color:var(--accent)">T</span>A
     </div>
     <div class="nav-right">
       <button class="nav-btn active" data-page="home">Overview</button>
@@ -682,7 +682,7 @@
         </div>
         <h1 class="hero-h1"><span class="text-gradient">Quantum-safe</span> web auth<br>for the post-quantum era</h1>
         <div style="font-size:14px; color:var(--text-secondary); max-width:560px; margin:0 auto 2rem; line-height:1.7;">
-          HWAP integrates ML-KEM-768, ML-DSA-65, and AES-256-GCM at the application layer — delivering hybrid
+          QUANTA integrates ML-KEM-768, ML-DSA-65, and AES-256-GCM at the application layer — delivering hybrid
           post-quantum cryptography with sub-5ms handshake latency.
         </div>
         <div style="display:flex; justify-content:center; gap:10px; margin-bottom:3.5rem;">
@@ -707,7 +707,7 @@
     </div>
 
     <div class="container" style="padding-bottom:2.5rem;">
-      <div class="section-title">How HWAP works</div>
+      <div class="section-title">How QUANTA works</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:1rem;">Hybrid cryptographic handshake in 5 steps</div>
       <div class="flow-grid">
         <div class="flow-card">
@@ -786,7 +786,8 @@
           <span class="section-title" style="margin-bottom:0;">HNDLR-Score</span>
         </div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Quantitative 5-dimension
-          security matrix for Harvest-Now-Decrypt-Later resistance. HWAP scores 94.2 compared to only 31.7 for classical
+          security matrix for Harvest-Now-Decrypt-Later resistance. QUANTA scores 94.2 compared to only 31.7 for
+          classical
           TLS 1.3.</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <span class="badge" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);">5
@@ -804,7 +805,7 @@
             <thead>
               <tr>
                 <th style="width:220px;">Feature</th>
-                <th style="color:var(--accent);">HWAP (PQC Hybrid)</th>
+                <th style="color:var(--accent);">QUANTA (PQC Hybrid)</th>
                 <th>TLS 1.3 (Classical)</th>
               </tr>
             </thead>
@@ -848,7 +849,7 @@
 
   <div id="page-register" class="page container" style="padding-top:2rem; max-width:640px;">
     <div class="section-title">User Registration</div>
-    <div style="font-size:14px;color:var(--muted);margin-bottom:1.5rem;">Create your HWAP identity before generating
+    <div style="font-size:14px;color:var(--muted);margin-bottom:1.5rem;">Create your QUANTA identity before generating
       post-quantum keys</div>
     <div class="card">
       <div style="margin-bottom:16px;">
@@ -941,7 +942,7 @@
       style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center; flex-wrap:wrap; gap:12px;">
       <div>
         <div class="section-title">Live Handshake Demo</div>
-        <div style="font-size:14px;color:var(--muted);">Click Run handshake to simulate a full HWAP session</div>
+        <div style="font-size:14px;color:var(--muted);">Click Run handshake to simulate a full QUANTA session</div>
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
         <div class="badge badge-green">
@@ -989,7 +990,7 @@
       <div>
         <div class="label">Protocol log</div>
         <div id="log-panel" class="log-panel">
-          <div class="log-line"><span class="log-time">00:00:00</span><span class="log-info">HWAP server ready —
+          <div class="log-line"><span class="log-time">00:00:00</span><span class="log-info">QUANTA server ready —
               awaiting handshake...</span></div>
         </div>
       </div>
@@ -1106,8 +1107,8 @@
       <div class="card">
         <div class="label">Latency history</div>
         <div style="height:200px;width:100%;"><canvas id="latencyChart"></canvas></div>
-        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px;font-weight:500;">Avg HWAP:
-          <span id="avg-hwap" style="color:var(--accent); font-weight:600;">—</span> &nbsp;|&nbsp; Avg TLS 1.3: 1.3ms
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px;font-weight:500;">Avg QUANTA:
+          <span id="avg-quanta" style="color:var(--accent); font-weight:600;">—</span> &nbsp;|&nbsp; Avg TLS 1.3: 1.3ms
         </div>
       </div>
     </div>
@@ -1118,12 +1119,12 @@
         style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="badge badge-blue">Sender</span>
-          <span style="font-size:13px;font-weight:600;" id="comm-sender">Alice — HWAP-USR-A1F9</span>
+          <span style="font-size:13px;font-weight:600;" id="comm-sender">Alice — QUANTA-USR-A1F9</span>
         </div>
         <span style="color:var(--muted);font-size:16px;">→</span>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="badge badge-green">Receiver</span>
-          <span style="font-size:13px;font-weight:600;" id="comm-receiver">Bob — HWAP-USR-B7C2</span>
+          <span style="font-size:13px;font-weight:600;" id="comm-receiver">Bob — QUANTA-USR-B7C2</span>
         </div>
         <div id="comm-delivery" style="display:none;">
           <span class="badge badge-green">✅ Delivered &amp; decrypted</span>
@@ -1176,7 +1177,7 @@
             </div>
             <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.7;">
               <div>Signer identity: <span id="sig-signer" style="color:var(--text);font-weight:600;">Alice —
-                  HWAP-USR-A1F9</span></div>
+                  QUANTA-USR-A1F9</span></div>
               <div>Timestamp: <span id="sig-timestamp"
                   style="color:var(--text);font-weight:600;font-family:var(--mono);"></span></div>
               <div>Algorithm: <span style="color:var(--text);font-weight:600;">ML-DSA-65 (NIST FIPS 204)</span></div>
@@ -1305,7 +1306,7 @@
           </g>
         </svg>
         <div>
-          <div style="font-size:13px;font-weight:700;">HWAP Score</div>
+          <div style="font-size:13px;font-weight:700;">QUANTA Score</div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">vs 31.7 TLS 1.3</div>
           <span class="badge badge-blue">NIST Level 3</span>
         </div>
@@ -1433,7 +1434,7 @@
     <div class="card table-card" style="margin-bottom:1.5rem;">
       <div
         style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-weight:700; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:var(--text); background:rgba(255,255,255,0.01);">
-        HWAP handshake latency across simulated network conditions</div>
+        QUANTA handshake latency across simulated network conditions</div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
@@ -1441,7 +1442,7 @@
               <th>Network Profile</th>
               <th>RTT (ms)</th>
               <th>Packet Loss</th>
-              <th>HWAP (ms)</th>
+              <th>QUANTA (ms)</th>
               <th>TLS 1.3 (ms)</th>
               <th>Overhead</th>
             </tr>
@@ -1495,15 +1496,15 @@
     <div class="card table-card" style="margin-bottom:1.5rem;">
       <div
         style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-weight:700; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:var(--text); background:rgba(255,255,255,0.01);">
-        HNDLR-Score dimension breakdown — HWAP vs TLS 1.3</div>
+        HNDLR-Score dimension breakdown — QUANTA vs TLS 1.3</div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
             <tr>
               <th>Dimension</th>
               <th>Weight</th>
-              <th>HWAP Raw</th>
-              <th>HWAP Weighted</th>
+              <th>QUANTA Raw</th>
+              <th>QUANTA Weighted</th>
               <th>TLS 1.3 Raw</th>
               <th>TLS 1.3 Weighted</th>
             </tr>
@@ -1571,26 +1572,26 @@
     // Tier log steps (UI narrative — real timing comes from backend)
     const TIER_STEPS = [
       ['→ ClientHello: X25519 + ML-KEM-768 key shares offered',
-       '→ ML-KEM-768 encapsulation: K_pq derived',
-       '→ X25519 key agreement: K_classical derived',
-       '→ HKDF-SHA3-256 combiner: K_hybrid = HKDF(K_pq ‖ K_classical)',
-       '→ ML-DSA-65 signing: server certificate verified',
-       '→ SHST token generated: valid 3600s, 83% overhead saved',
-       '→ AES-256-GCM channel established (96-bit nonce, 128-bit tag)'],
+        '→ ML-KEM-768 encapsulation: K_pq derived',
+        '→ X25519 key agreement: K_classical derived',
+        '→ HKDF-SHA3-256 combiner: K_hybrid = HKDF(K_pq ‖ K_classical)',
+        '→ ML-DSA-65 signing: server certificate verified',
+        '→ SHST token generated: valid 3600s, 83% overhead saved',
+        '→ AES-256-GCM channel established (96-bit nonce, 128-bit tag)'],
       ['→ ClientHello: ML-KEM-768 key share offered',
-       '→ ML-KEM-768 encapsulation: K_pq derived',
-       '→ ECDSA signature verification',
-       '→ SHST token generated',
-       '→ AES-256-GCM channel established'],
+        '→ ML-KEM-768 encapsulation: K_pq derived',
+        '→ ECDSA signature verification',
+        '→ SHST token generated',
+        '→ AES-256-GCM channel established'],
       ['→ ClientHello: X25519 key share offered',
-       '→ X25519 key agreement: K_classical derived',
-       '→ ML-DSA-65 signing: server certificate verified',
-       '→ SHST token generated',
-       '→ AES-256-GCM channel established'],
+        '→ X25519 key agreement: K_classical derived',
+        '→ ML-DSA-65 signing: server certificate verified',
+        '→ SHST token generated',
+        '→ AES-256-GCM channel established'],
       ['→ ClientHello: X25519 key share offered (classical only)',
-       '→ X25519 key agreement: K_classical derived',
-       '→ ECDSA signature verification',
-       '→ Session established — WARNING: no post-quantum protection'],
+        '→ X25519 key agreement: K_classical derived',
+        '→ ECDSA signature verification',
+        '→ Session established — WARNING: no post-quantum protection'],
     ];
 
     // ── State ─────────────────────────────────────────────────────────────────
@@ -1710,7 +1711,7 @@
         });
         const ring = document.getElementById('ring-fill');
         if (ring) ring.style.strokeDashoffset = (326.7 * (1 - total / 100)).toFixed(1);
-      } catch (_) {}
+      } catch (_) { }
     }
 
     // ── Handshake (real backend) ──────────────────────────────────────────────
@@ -1742,7 +1743,7 @@
           if (latencyHistory.length > 12) latencyHistory.shift();
           updateLatencyChart();
           const avg = (latencyHistory.reduce((a, b) => a + b, 0) / latencyHistory.length).toFixed(2);
-          document.getElementById('avg-hwap').innerText = avg + 'ms';
+          document.getElementById('avg-quanta').innerText = avg + 'ms';
           fetchAndApplyScore();
           updateSessionActivity();
           setBtn('btn-run-handshake', false, 'Run handshake');
@@ -1804,7 +1805,7 @@
 
     function copySignature() {
       if (!lastSigHex) return;
-      navigator.clipboard && navigator.clipboard.writeText(lastSigHex).catch(() => {});
+      navigator.clipboard && navigator.clipboard.writeText(lastSigHex).catch(() => { });
       const btn = document.getElementById('btn-copy-sig');
       const orig = btn.innerText;
       btn.innerText = 'Copied ✓';
@@ -1817,7 +1818,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `hwap_signature_${Date.now()}.sig`;
+      a.download = `quanta_signature_${Date.now()}.sig`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1921,7 +1922,7 @@
         document.getElementById('comm-cipher').innerText =
           `${data.ciphertext_hex.slice(0, 56)}… (${data.ciphertext_hex.length / 2} bytes)\nNonce: ${data.nonce}`;
         document.getElementById('comm-cipher-wrap').style.display = 'block';
-        addLog(`🔒 AES-256-GCM encrypted — ${data.ciphertext_hex.length / 2} bytes ciphertext, nonce: ${data.nonce.slice(0,12)}…`, 'log-ok');
+        addLog(`🔒 AES-256-GCM encrypted — ${data.ciphertext_hex.length / 2} bytes ciphertext, nonce: ${data.nonce.slice(0, 12)}…`, 'log-ok');
         setBtn('btn-send', false, '📤 Send');
       } catch (err) {
         addLog(`❌ Encryption failed: ${err.message}`, 'log-error');
@@ -1989,8 +1990,8 @@
         document.getElementById('verify-signer').innerText = data.signer_id || userId;
         document.getElementById('verify-timestamp').innerText = new Date(data.timestamp).toLocaleString();
         // Show simple hash comparison for display
-        const h1 = Array.from(msgToVerify).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16).padStart(8,'0');
-        const h2 = Array.from(lastSignedMsg).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16).padStart(8,'0');
+        const h1 = Array.from(msgToVerify).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16).padStart(8, '0');
+        const h2 = Array.from(lastSignedMsg).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16).padStart(8, '0');
         document.getElementById('verify-hash-doc').innerText = h1 + '…';
         document.getElementById('verify-hash-expected').innerText = h2 + '…';
         document.getElementById('verify-result').style.display = 'block';
@@ -2009,7 +2010,7 @@
         data: {
           labels: Array.from({ length: 12 }, (_, i) => '#' + (i + 1)),
           datasets: [
-            { label: 'HWAP', data: [], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.06)', fill: true, tension: 0.4, pointRadius: 3 },
+            { label: 'QUANTA', data: [], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.06)', fill: true, tension: 0.4, pointRadius: 3 },
             { label: 'TLS 1.3', data: Array(12).fill(1.3), borderColor: '#F87171', borderDash: [4, 4], pointRadius: 0, fill: false }
           ]
         },
@@ -2039,7 +2040,7 @@
         data: {
           labels: ['LAN', '4G', '3G', 'Satellite'],
           datasets: [
-            { label: 'HWAP', data: [2.1, 82.3, 202.9, 603.4], backgroundColor: 'rgba(52,211,153,0.7)', borderRadius: 4 },
+            { label: 'QUANTA', data: [2.1, 82.3, 202.9, 603.4], backgroundColor: 'rgba(52,211,153,0.7)', borderRadius: 4 },
             { label: 'TLS 1.3', data: [1.3, 81.7, 202.4, 603.1], backgroundColor: 'rgba(248,113,113,0.5)', borderRadius: 4 }
           ]
         },
@@ -2057,7 +2058,7 @@
         data: {
           labels: [1, 2, 4, 8, 16, 32, 64],
           datasets: [
-            { label: 'HWAP req/s', data: [476, 943, 1812, 3401, 5892, 8234, 9102], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.08)', fill: true, tension: 0.4 },
+            { label: 'QUANTA req/s', data: [476, 943, 1812, 3401, 5892, 8234, 9102], borderColor: '#34D399', backgroundColor: 'rgba(52,211,153,0.08)', fill: true, tension: 0.4 },
             { label: 'TLS 1.3 req/s', data: [769, 1524, 2901, 5234, 8912, 10234, 10891], borderColor: '#F87171', borderDash: [4, 4], fill: false, tension: 0.4 }
           ]
         },

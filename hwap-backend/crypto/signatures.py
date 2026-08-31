@@ -25,8 +25,7 @@ def sign_message(message: str, user_id: str) -> SignResult:
         raise ValueError("Keypair not found. Generate one first.")
         
     if OQS_AVAILABLE:
-        with oqs.Signature('Dilithium3') as signer:
-            signer.secret_key = private_key
+        with oqs.Signature('Dilithium3', secret_key=private_key) as signer:
             signature = signer.sign(message.encode('utf-8'))
     else:
         signature = os.urandom(3293)

@@ -13,7 +13,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="HWAP Backend API", lifespan=lifespan)
+app = FastAPI(title="QUANTA Backend API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
