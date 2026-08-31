@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database.session import init_db
-from routers import auth, handshake, comms, signing, audit, system
+from routers import auth, handshake, comms, signing, audit, system, quantum_router
 
 
 @asynccontextmanager
@@ -30,3 +30,4 @@ app.include_router(comms.router)
 app.include_router(signing.router)
 app.include_router(audit.router)
 app.include_router(system.router)
+app.include_router(quantum_router.router)

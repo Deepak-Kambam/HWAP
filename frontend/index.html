@@ -589,7 +589,311 @@
         margin-bottom: 0;
       }
     }
+
+    /* ── Quantum Threat Lab ──────────────────────────────────────── */
+    .qtl-hero {
+      background: radial-gradient(circle at 85% 20%, rgba(34, 197, 94, 0.05) 0%, rgba(20, 184, 166, 0.03) 40%, rgba(18, 18, 20, 0.95) 100%), var(--card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+    .qtl-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .qtl-step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+    .qtl-step-pill .step-tag {
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .qtl-step-pill.red .step-tag {
+      color: var(--red);
+    }
+    .qtl-step-pill.amber .step-tag {
+      color: var(--amber);
+    }
+    .qtl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.22);
+      color: var(--accent-light);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      font-family: var(--mono);
+    }
+    .qtl-badge-red {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.22);
+      color: #F87171;
+    }
+    .qtl-badge-amber {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.22);
+      color: var(--amber);
+    }
+    .qtl-param-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-family: var(--mono);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .qtl-param-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      background: rgba(34, 197, 94, 0.06);
+    }
+    .qtl-param-btn.active {
+      background: rgba(34, 197, 94, 0.14);
+      border-color: var(--accent);
+      color: var(--accent-light);
+      font-weight: 700;
+    }
+    .qtl-qubit-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 14px 0;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .qtl-qubit {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(20, 184, 166, 0.35);
+      background: rgba(20, 184, 166, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .qtl-qubit.target {
+      border-color: rgba(139, 92, 246, 0.35);
+      background: rgba(139, 92, 246, 0.05);
+      color: var(--purple);
+    }
+    .qtl-qubit.active {
+      background: rgba(34, 197, 94, 0.18);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.35);
+      animation: qubit-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes qubit-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .qtl-circuit-console {
+      background: #08080B;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      overflow-x: auto;
+    }
+    .gate-h { color: var(--teal); font-weight: 600; }
+    .gate-u { color: var(--purple); font-weight: 600; }
+    .gate-qft { color: var(--accent-light); font-weight: 600; }
+    .gate-ctrl { color: var(--accent); font-weight: 800; }
+    .qtl-stat-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      transition: border-color 0.15s;
+    }
+    .qtl-stat-box:hover {
+      border-color: var(--border-strong);
+    }
+    .qtl-stat-value {
+      font-size: 20px;
+      font-weight: 800;
+      font-family: var(--mono);
+      letter-spacing: -0.5px;
+    }
+    .qtl-stat-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .qtl-factors-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--mono);
+      color: var(--text);
+      margin: 12px 0;
+    }
+    .qtl-mode-toggle {
+      display: flex;
+      background: #08080B;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 1.25rem;
+      gap: 4px;
+    }
+    .qtl-mode-btn {
+      flex: 1;
+      padding: 9px 16px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .qtl-mode-btn:hover:not(.active-classical):not(.active-hybrid) {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .qtl-mode-btn.active-classical {
+      background: rgba(239, 68, 68, 0.12);
+      color: #F87171;
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    .qtl-mode-btn.active-hybrid {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--accent-light);
+      border-color: rgba(34, 197, 94, 0.28);
+    }
+    .qtl-console-panel {
+      background: #08080A;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .qtl-captured-panel {
+      background: rgba(239, 68, 68, 0.04);
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      margin-top: 12px;
+    }
+    .qtl-decrypted-panel {
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.28);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+    .qtl-comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .qtl-comparison-table th {
+      text-align: left;
+      padding: 12px 18px;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .qtl-comparison-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .qtl-comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .qtl-comparison-table tr:hover td {
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .status-vulnerable { color: #F87171; font-weight: 700; font-size: 12px; }
+    .status-safe { color: var(--accent-light); font-weight: 700; font-size: 12px; }
+    .status-warn { color: var(--amber); font-weight: 700; font-size: 12px; }
+    .qtl-hndl-explainer {
+      background: rgba(34, 197, 94, 0.03);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+    }
+    .disclaimer-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-top: 12px;
+    }
+    .disclaimer-box strong { color: var(--text); }
   </style>
+
 </head>
 
 <body>
@@ -610,6 +914,7 @@
       <button class="nav-btn" data-page="verify">Verify</button>
       <button class="nav-btn" data-page="audit">Audit</button>
       <button class="nav-btn" data-page="bench">Benchmarks</button>
+      <button class="nav-btn" data-page="quantum">Threat Lab <span class="badge badge-amber" style="padding:1px 5px;font-size:9px;border-radius:4px;">LAB</span></button>
     </div>
   </div>
 
@@ -1563,6 +1868,403 @@
       </div>
     </div>
   </div>
+  <!-- ══════════════════════════════════════════════════════════════════
+       QUANTUM THREAT LAB PAGE
+       ══════════════════════════════════════════════════════════════════ -->
+  <div id="page-quantum" class="page container" style="padding-top:2rem;">
+
+    <!-- Hero Banner -->
+    <div class="qtl-hero">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:0.85rem;">
+        <div>
+          <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;color:var(--text);">Quantum Threat Lab</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:3px;">
+            Shor's Algorithm Simulation <span style="color:var(--muted);margin:0 6px;">·</span> Harvest-Now, Decrypt-Later Demo <span style="color:var(--muted);margin:0 6px;">·</span> Hybrid PQC Mitigation
+          </div>
+        </div>
+        <span class="qtl-badge">Proof of Principle</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;max-width:780px;">
+        Demonstrates how future Cryptographically Relevant Quantum Computers (CRQCs) can compromise classical asymmetric
+        cryptography (RSA, ECC, X25519) to execute <strong style="color:var(--amber);">Harvest-Now, Decrypt-Later (HNDL)</strong> attacks, and how QUANTA's hybrid architecture (<strong style="color:var(--accent-light);">ML-KEM-768 + X25519</strong>) eliminates this vulnerability.
+      </div>
+      <div class="disclaimer-box">
+        <strong>Important Disclaimer:</strong> This module runs a mathematical simulation of Shor's period-finding on classical hardware to factor N=15 as an educational proof of principle. Breaking production RSA-2048 or ECC-256 requires millions of error-corrected physical qubits.
+      </div>
+    </div>
+
+    <!-- ── STEP 01: Shor's Algorithm Simulation (Full-Width Card with 2-Column Split) ── -->
+    <div class="card" style="margin-bottom:1.75rem;">
+      <div class="qtl-step-pill amber">
+        <span class="step-tag">Step 01</span> // Quantum Phase Estimation &amp; Factorization
+      </div>
+      <div class="section-title" style="margin-bottom:4px;" id="qtl-step1-title">Shor's Algorithm Simulation (N=15, a=7)</div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.6;max-width:800px;" id="qtl-step1-desc">
+        Simulates the quantum phase estimation and inverse Quantum Fourier Transform (QFT⁻¹) stages. The measurement distribution concentrates on eigenstates yielding the period r = ord<sub>15</sub>(7).
+      </div>
+
+      <div class="grid-2" style="gap:1.5rem;align-items:start;">
+        <!-- Left: Interactive Parameters + Circuit -->
+        <div>
+          <!-- Interactive N + a pickers -->
+          <div style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:1rem;margin-bottom:14px;">
+            <div class="label" style="color:var(--amber);margin-bottom:10px;">Quantum Parameters — Customize &amp; Run</div>
+
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+              <div style="flex:1;min-width:140px;">
+                <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px;">Semi-prime N (to factor)</div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                  <button class="qtl-param-btn active" id="qtl-n-15" onclick="selectN(15)">N=15</button>
+                  <button class="qtl-param-btn" id="qtl-n-21" onclick="selectN(21)">N=21</button>
+                  <button class="qtl-param-btn" id="qtl-n-35" onclick="selectN(35)">N=35</button>
+                  <button class="qtl-param-btn" id="qtl-n-77" onclick="selectN(77)">N=77</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+                  <span style="font-size:11px;color:var(--text-secondary);">Custom:</span>
+                  <input type="number" id="qtl-n-custom" min="4" max="200" placeholder="e.g. 91"
+                    class="input-premium" style="width:75px;padding:3px 6px;font-size:11px;"
+                    oninput="selectCustomN()">
+                </div>
+              </div>
+              <div style="flex:1;min-width:140px;">
+                <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px;">Coprime Base a</div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                  <button class="qtl-param-btn active" id="qtl-a-7" onclick="selectA(7)">a=7</button>
+                  <button class="qtl-param-btn" id="qtl-a-2" onclick="selectA(2)">a=2</button>
+                  <button class="qtl-param-btn" id="qtl-a-4" onclick="selectA(4)">a=4</button>
+                  <button class="qtl-param-btn" id="qtl-a-8" onclick="selectA(8)">a=8</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+                  <span style="font-size:11px;color:var(--text-secondary);">Custom:</span>
+                  <input type="number" id="qtl-a-custom" min="2" max="199" placeholder="e.g. 11"
+                    class="input-premium" style="width:75px;padding:3px 6px;font-size:11px;"
+                    oninput="selectCustomA()">
+                </div>
+              </div>
+            </div>
+
+            <!-- Live math preview -->
+            <div id="qtl-param-preview" style="font-size:11px;font-family:var(--mono);color:var(--text-secondary);background:#000;padding:8px 10px;border-radius:6px;line-height:1.6;">
+              N = 15 &nbsp;|&nbsp; a = 7 &nbsp;|&nbsp; Theoretical period r = 4
+            </div>
+            <div id="qtl-param-error" style="display:none;font-size:11px;color:var(--red);margin-top:6px;"></div>
+          </div>
+
+          <!-- Qubit register (rendered dynamically by JS) -->
+          <div class="label">Quantum Register Layout</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;">Control Register (q0–) · Target / Ancilla Register</div>
+          <div class="qtl-qubit-row" id="qtl-qubits"></div>
+
+          <div class="label" style="margin-top:14px;">Simulated Circuit Topology</div>
+          <div class="qtl-circuit-console" id="qtl-circuit-text">
+            q0 ─<span class="gate-h">|H|</span>──────────<span class="gate-ctrl">●</span>────── ─── <span class="gate-qft">QFT⁻¹</span> ─► Meas<br>
+            q1 ─<span class="gate-h">|H|</span>──────────────<span class="gate-ctrl">●</span>── ─── <span class="gate-qft">QFT⁻¹</span> ─► Meas<br>
+            q2 ─<span class="gate-h">|H|</span>──────────────────<span class="gate-ctrl">●</span>─ ─── <span class="gate-qft">QFT⁻¹</span> ─► Meas<br>
+            q3 ─<span class="gate-h">|H|</span>──────────────────────<span class="gate-ctrl">●</span> <span class="gate-qft">QFT⁻¹</span> ─► Meas<br>
+            ═══════════════════════════════════════════<br>
+            q4 ─<span class="gate-u">|X|</span>──<span class="gate-u">|U_7|</span>──<span class="gate-u">|U_7²|</span>──<span class="gate-u">|U_7⁴|</span> ─────────► Ancilla
+          </div>
+
+          <button class="btn-primary" id="btn-run-shor" onclick="runQuantumDemo()"
+            style="width:100%;justify-content:center;margin-top:1.25rem;">
+            Run Quantum Threat Simulation
+          </button>
+        </div>
+
+        <!-- Right: Simulation Analytics & Histogram -->
+        <div>
+          <!-- Placeholder when idle -->
+          <div id="qtl-shor-placeholder" style="background:#08080B;border:1px dashed var(--border);border-radius:10px;padding:2.5rem 1.5rem;text-align:center;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);margin:0 auto 12px;box-shadow:0 0 10px var(--amber);"></div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">Quantum Simulator Ready</div>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;max-width:360px;margin:0 auto;">
+              Click <strong>Run Quantum Threat Simulation</strong> on the left to execute the 1024-shot circuit, generate phase eigenstates, and extract prime factors.
+            </div>
+          </div>
+
+          <!-- Simulation results -->
+          <div id="qtl-shor-results" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+              <div class="qtl-stat-box">
+                <div class="qtl-stat-value" style="color:var(--teal);" id="qtl-num-qubits">8</div>
+                <div class="qtl-stat-label">Total Qubits</div>
+              </div>
+              <div class="qtl-stat-box">
+                <div class="qtl-stat-value" style="color:var(--purple);" id="qtl-circuit-depth">23</div>
+                <div class="qtl-stat-label">Circuit Depth</div>
+              </div>
+              <div class="qtl-stat-box">
+                <div class="qtl-stat-value" style="color:var(--accent-light);" id="qtl-period">r = 4</div>
+                <div class="qtl-stat-label">Period Found</div>
+              </div>
+            </div>
+
+            <div class="label" style="margin-top:8px;">Extracted Prime Factors (Classical Post-Processing)</div>
+            <div class="qtl-factors-display" id="qtl-factors-display">
+              — × — = 15
+            </div>
+
+            <div class="label" style="margin-top:12px;">Measurement Distribution (1024 Shots)</div>
+            <div style="height:160px;margin-top:6px;background:rgba(0,0,0,0.3);padding:10px;border-radius:10px;border:1px solid var(--border);">
+              <canvas id="qtl-histogram-chart"></canvas>
+            </div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-top:8px;line-height:1.5;" id="qtl-histogram-explainer">
+              Concentration at states corresponds to multiples of 2^t/r. The QFT concentrates phase peaks, enabling factor extraction via gcd(a^(r/2) ± 1, N).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 02: Classical HNDL Attack Demo (Full-Width Card with 2-Column Split) ── -->
+    <div class="card" style="margin-bottom:1.75rem;">
+      <div class="qtl-step-pill red">
+        <span class="step-tag">Step 02</span> // Harvest-Now, Decrypt-Later Attack
+      </div>
+      <div class="section-title" style="margin-bottom:4px;" id="qtl-step2-title">Classical Ciphertext Capture &amp; Decryption</div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.6;max-width:800px;">
+        Demonstrates an adversary capturing classical public-key ciphertext and using recovered quantum factors to extract the private key and retroactively decrypt all payload data. <strong style="color:var(--amber);">Type any custom message below.</strong>
+      </div>
+
+      <div class="grid-2" style="gap:1.5rem;align-items:start;">
+        <!-- Left: Transmit & Intercept -->
+        <div>
+          <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+            <span class="qtl-badge qtl-badge-red">Classical Mode</span>
+            <span id="qtl-rsa-key-label" style="font-size:11px;color:var(--text-secondary);font-family:var(--mono);">Toy RSA (N=15, e=7)</span>
+          </div>
+
+          <div class="label">Custom Payload Message (Type or pick sample)</div>
+          <textarea id="qtl-custom-message" class="input-premium"
+            style="width:100%;min-height:64px;resize:vertical;font-family:var(--mono);font-size:12px;margin-bottom:8px;">Confidential Healthcare Record — Patient: Alice</textarea>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <button class="qtl-param-btn" onclick="setQTLMessage('Confidential Healthcare Record — Patient: Alice')">Medical</button>
+            <button class="qtl-param-btn" onclick="setQTLMessage('Bank Transfer: $500,000 to Account #8491')">Financial</button>
+            <button class="qtl-param-btn" onclick="setQTLMessage('Root Password: SuperSecretKey99!')">Credential</button>
+            <button class="qtl-param-btn" onclick="setQTLMessage('Defense Memo: Operation Apex Alpha-77')">Defense</button>
+          </div>
+
+          <button class="btn-ghost btn-sm" id="btn-classical-encrypt" onclick="classicalEncrypt()"
+            style="width:100%;justify-content:center;margin-bottom:8px;">
+            Encrypt with Classical-Only (Toy RSA)
+          </button>
+
+          <div id="qtl-captured-section" style="display:none;">
+            <div class="label" style="color:var(--red);margin-top:12px;">Adversary Interception Log</div>
+            <div class="qtl-captured-panel" id="qtl-ciphertext-display">—</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-top:6px;line-height:1.5;">
+              The adversary archives this ciphertext alongside the public key in cold storage. Uses same modulus N from Step 01.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Quantum Decryption Attack -->
+        <div>
+          <div class="label">Quantum Decryption Phase</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6;" id="qtl-attack-desc">
+            Once factors (p, q) are obtained via quantum simulation, the private key d is derived via d = e⁻¹ mod φ(N).
+          </div>
+
+          <button class="btn-ghost btn-sm" id="btn-quantum-attack" onclick="simulateQuantumAttack()"
+            style="width:100%;justify-content:center;border-color:rgba(239,68,68,0.4);color:#F87171;">
+            Simulate Quantum Attack (Use Shor's Factors)
+          </button>
+          <div id="qtl-attack-hint" style="font-size:11px;color:var(--text-secondary);text-align:center;margin-top:6px;">
+            Run Step 01 simulation first to extract factors.
+          </div>
+
+          <div id="qtl-decrypted-section" style="display:none;margin-top:12px;">
+            <div class="qtl-decrypted-panel">
+              <div style="font-weight:700;color:#F87171;font-size:13px;margin-bottom:6px;">
+                Classical Secret Recovered · Payload Compromised
+              </div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">
+                Derived Private Key: <span id="qtl-recovered-d" style="color:var(--amber);font-family:var(--mono);font-weight:700;">—</span>
+              </div>
+              <div class="qtl-console-panel" style="background:#000;border-color:rgba(239,68,68,0.3);color:var(--text);" id="qtl-decrypted-msg">
+                —
+              </div>
+              <div style="font-size:11px;color:var(--text-secondary);margin-top:8px;line-height:1.5;">
+                Vulnerability: All captured sessions encrypted under classical keys are permanently exposed once factors are known.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 03: QUANTA Hybrid Defense Architecture (Full-Width Card) ── -->
+    <div class="card" style="margin-bottom:1.75rem;">
+      <div class="qtl-step-pill">
+        <span class="step-tag">Step 03</span> // Hybrid PQC Defense Architecture
+      </div>
+      <div class="section-title" style="margin-bottom:4px;">Why QUANTA Hybrid Handshakes Resist HNDL</div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.6;max-width:800px;">
+        QUANTA binds classical key exchange (X25519) with NIST FIPS 203 Post-Quantum KEM (ML-KEM-768). The resulting session key K = HKDF(K_classical ‖ K_pqc) remains computationally secure even if an adversary breaks the discrete log problem on X25519.
+      </div>
+
+      <!-- Segmented mode switcher -->
+      <div class="qtl-mode-toggle" style="max-width:520px;">
+        <button class="qtl-mode-btn active-classical" id="qtl-btn-classical" onclick="setQuantumMode('classical')">
+          Classical Only (X25519)
+        </button>
+        <button class="qtl-mode-btn" id="qtl-btn-hybrid" onclick="setQuantumMode('hybrid')">
+          QUANTA Hybrid (X25519 + ML-KEM-768)
+        </button>
+      </div>
+
+      <div class="grid-2" style="gap:1.5rem;align-items:start;">
+        <!-- Key exchange details -->
+        <div>
+          <div id="qtl-classical-detail">
+            <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:10px;padding:1.25rem;">
+              <div style="font-weight:700;color:#F87171;font-size:13px;margin-bottom:8px;">Classical Architecture (Vulnerable)</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;font-family:var(--mono);">
+                Key Exchange: X25519 (ECDH)<br>
+                Session Key: K = HKDF(K_classical)<br>
+                Authentication: ECDSA P-256<br>
+                Symmetric Cipher: AES-256-GCM
+              </div>
+              <div style="font-size:11px;color:#F87171;margin-top:10px;border-top:1px solid rgba(239,68,68,0.15);padding-top:8px;">
+                Warning: Shor's algorithm on elliptic curves breaks K_classical → session key compromised.
+              </div>
+            </div>
+          </div>
+          <div id="qtl-hybrid-detail" style="display:none;">
+            <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.22);border-radius:10px;padding:1.25rem;">
+              <div style="font-weight:700;color:var(--accent-light);font-size:13px;margin-bottom:8px;">QUANTA Hybrid Architecture (Post-Quantum Secure)</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;font-family:var(--mono);">
+                Dual KEM: X25519 (Classical) + ML-KEM-768 (Lattice)<br>
+                Combiner: ss = K_classical ‖ K_pqc<br>
+                Session Key: K = HKDF-SHA256(ss, "quanta-hybrid-v1")<br>
+                Signature: ML-DSA-65 (NIST FIPS 204)<br>
+                Symmetric Cipher: AES-256-GCM
+              </div>
+              <div style="font-size:11px;color:var(--accent-light);margin-top:10px;border-top:1px solid rgba(34,197,94,0.15);padding-top:8px;">
+                Protected: Deriving K requires breaking both Module-LWE and ECDLP simultaneously.
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-ghost btn-sm" id="btn-qtl-handshake" onclick="runQuantumHandshake()"
+            style="width:100%;justify-content:center;margin-top:12px;">
+            Execute Handshake in Current Mode
+          </button>
+          <div id="qtl-handshake-result" style="display:none;margin-top:12px;padding:12px 14px;background:#08080A;border:1px solid var(--border);border-radius:10px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+          </div>
+        </div>
+
+        <!-- Cryptographic Resilience Analysis -->
+        <div>
+          <div class="label">Cryptographic Resilience Analysis</div>
+          <div id="qtl-security-classical" style="margin-top:8px;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:12px;font-weight:700;color:#F87171;margin-bottom:4px;">X25519 (Classical Primitive)</div>
+                <div style="font-size:11px;color:var(--text-secondary);">Vulnerable to Shor's algorithm for discrete logarithm problem (O(log³ N)).</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.18);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:4px;">Single-Layer Session Key</div>
+                <div style="font-size:11px;color:var(--text-secondary);">No secondary mathematical barrier. Historical traffic is fully exposed under HNDL.</div>
+              </div>
+            </div>
+          </div>
+          <div id="qtl-security-hybrid" style="display:none;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.18);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:12px;font-weight:700;color:#F87171;margin-bottom:4px;">X25519 (Classical Component)</div>
+                <div style="font-size:11px;color:var(--text-secondary);">Preserves backward compatibility and classical security proofs.</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:12px;font-weight:700;color:var(--accent-light);margin-bottom:4px;">ML-KEM-768 (Lattice Component)</div>
+                <div style="font-size:11px;color:var(--text-secondary);">Based on hardness of Module Learning With Errors (M-LWE). No polynomial-time quantum algorithm known.</div>
+              </div>
+              <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:12px;font-weight:700;color:var(--accent-light);margin-bottom:4px;">Combined Hybrid Session Key</div>
+                <div style="font-size:11px;color:var(--text-secondary);">HKDF entropy preserves security if at least one underlying primitive remains unbroken.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 04: Security Comparison Matrix (Full-Width Card) ── -->
+    <div class="card table-card" style="margin-bottom:2rem;padding:0;overflow:hidden;">
+      <div style="padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-weight:700;font-size:14px;letter-spacing:0.5px;text-transform:uppercase;color:var(--text);">
+          Cryptographic Security Comparison Matrix
+        </div>
+        <span class="badge badge-green">NIST Standards</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="qtl-comparison-table">
+          <thead>
+            <tr>
+              <th>Primitive / Protocol</th>
+              <th>Mathematical Basis</th>
+              <th>Classical Security</th>
+              <th>Quantum Security (Shor's)</th>
+              <th>HNDL Exposure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>RSA-2048</strong></td>
+              <td>Integer Factorization</td>
+              <td class="status-safe">112-bit</td>
+              <td class="status-vulnerable">Vulnerable</td>
+              <td class="status-vulnerable">High Risk</td>
+            </tr>
+            <tr>
+              <td><strong>ECDH P-256</strong></td>
+              <td>Elliptic Curve Discrete Log</td>
+              <td class="status-safe">128-bit</td>
+              <td class="status-vulnerable">Vulnerable</td>
+              <td class="status-vulnerable">High Risk</td>
+            </tr>
+            <tr>
+              <td><strong>X25519 (Curve25519)</strong></td>
+              <td>Montgomery Curve ECDH</td>
+              <td class="status-safe">128-bit</td>
+              <td class="status-vulnerable">Vulnerable</td>
+              <td class="status-vulnerable">High Risk</td>
+            </tr>
+            <tr style="background:rgba(34,197,94,0.02);">
+              <td><strong>ML-KEM-768</strong> <span class="badge badge-blue" style="margin-left:6px;vertical-align:middle;">FIPS 203</span></td>
+              <td>Module-LWE (Lattices)</td>
+              <td class="status-safe">192-bit (Category 3)</td>
+              <td class="status-safe">Quantum Resistant</td>
+              <td class="status-safe">Protected</td>
+            </tr>
+            <tr style="background:rgba(34,197,94,0.05);border-top:1px solid rgba(34,197,94,0.15);">
+              <td><strong>QUANTA Hybrid</strong><br><span style="font-size:11px;color:var(--text-secondary);">X25519 + ML-KEM-768</span></td>
+              <td>Dual-Layer (Lattice + ECDH)</td>
+              <td class="status-safe">Dual Guarantee</td>
+              <td class="status-safe">Quantum Resistant (Hybrid)</td>
+              <td class="status-safe">Zero Exposure</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- HNDL Explanation -->
+      <div class="qtl-hndl-explainer" style="margin:1.25rem 1.75rem 1.75rem 1.75rem;">
+        <div style="font-weight:700;color:var(--text);font-size:13px;margin-bottom:6px;">
+          Understanding Harvest-Now, Decrypt-Later (HNDL)
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+          State-sponsored actors and adversaries currently record and store encrypted traffic on high-value networks. When quantum computing systems achieve sufficient fault-tolerant scale, Shor's algorithm will be run against recorded handshake transcripts to factor private keys and decrypt years of historical data retroactively.
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-top:8px;">
+          <strong style="color:var(--accent-light);">QUANTA Mitigation:</strong> Incorporating ML-KEM-768 into the handshake ensures that deriving the master secret requires breaking lattice cryptography, which possesses no known quantum polynomial-time solution.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ── END QUANTUM THREAT LAB PAGE ── -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script>
@@ -2113,7 +2815,395 @@
         .catch(() => addLog('🔴 Backend not reachable at http://127.0.0.1:8000 — run: uvicorn main:app --reload', 'log-error'));
     });
 
+    // ═══════════════════════════════════════════════════════════════════
+    // QUANTUM THREAT LAB — Dynamic Interactive Engine
+    // ═══════════════════════════════════════════════════════════════════
+
+    // State for Quantum Threat Lab
+    let qtlCurrentN = 15;
+    let qtlCurrentA = 7;
+    let qtlCurrentE = 7;
+    let qtlShorFactors = null;    // { p, q } recovered by Shor's demo
+    let qtlCiphertextBlocks = []; // blocks from classicalEncrypt()
+    let qtlEncryptedMessage = ""; // the exact message string that was encrypted
+    let qtlHistogramChart = null; // Chart.js instance
+    let qtlCurrentMode = 'classical'; // 'classical' | 'hybrid'
+
+    // Helper: gcd
+    function qtlGcd(a, b) {
+      return b === 0 ? a : qtlGcd(b, a % b);
+    }
+
+    // Helper: compute order of a mod n
+    function qtlFindOrder(a, n) {
+      if (qtlGcd(a, n) !== 1) return -1;
+      let r = 1, val = a % n;
+      while (val !== 1) {
+        val = (val * a) % n;
+        r++;
+        if (r > n * n) return -1;
+      }
+      return r;
+    }
+
+    // Update dynamic qubit tiles
+    function renderQubitsLayout(controlQ, targetQ) {
+      const container = document.getElementById('qtl-qubits');
+      if (!container) return;
+      let html = '';
+      for (let i = 0; i < controlQ; i++) {
+        html += `<div class="qtl-qubit" title="Control Register q${i}">q${i}</div>`;
+      }
+      html += `<div style="width:10px;height:2px;background:var(--border);margin:0 4px;"></div>`;
+      for (let i = 0; i < targetQ; i++) {
+        const idx = controlQ + i;
+        html += `<div class="qtl-qubit target" title="Target Register q${idx}">q${idx}</div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    // Update theoretical preview text
+    function updateParamPreview() {
+      const preview = document.getElementById('qtl-param-preview');
+      const errBox = document.getElementById('qtl-param-error');
+      const r = qtlFindOrder(qtlCurrentA, qtlCurrentN);
+
+      if (qtlGcd(qtlCurrentA, qtlCurrentN) !== 1) {
+        errBox.textContent = `Warning: gcd(${qtlCurrentA}, ${qtlCurrentN}) = ${qtlGcd(qtlCurrentA, qtlCurrentN)} ≠ 1 (must be coprime).`;
+        errBox.style.display = 'block';
+        preview.innerHTML = `N = ${qtlCurrentN} &nbsp;|&nbsp; a = ${qtlCurrentA} &nbsp;|&nbsp; <span style="color:var(--red);">Not coprime</span>`;
+      } else {
+        errBox.style.display = 'none';
+        preview.innerHTML = `N = ${qtlCurrentN} &nbsp;|&nbsp; a = ${qtlCurrentA} &nbsp;|&nbsp; Multiplicative order r = ord<sub>${qtlCurrentN}</sub>(${qtlCurrentA}) = <strong style="color:var(--accent-light);">${r !== -1 ? r : 'N/A'}</strong>`;
+      }
+
+      // Update titles
+      document.getElementById('qtl-step1-title').textContent = `Shor's Algorithm Simulation (N=${qtlCurrentN}, a=${qtlCurrentA})`;
+      document.getElementById('qtl-rsa-key-label').textContent = `Toy RSA (N=${qtlCurrentN}, e=${qtlCurrentE})`;
+      
+      const t = Math.max(4, Math.ceil(Math.log2(qtlCurrentN)) + 1);
+      const numTarget = Math.max(4, Math.ceil(Math.log2(qtlCurrentN)));
+      renderQubitsLayout(t, numTarget);
+    }
+
+    // Parameter Selectors
+    function selectN(val) {
+      ['15', '21', '35', '77'].forEach(k => {
+        const btn = document.getElementById(`qtl-n-${k}`);
+        if (btn) btn.className = (val === parseInt(k)) ? 'qtl-param-btn active' : 'qtl-param-btn';
+      });
+      if (val !== null) {
+        qtlCurrentN = val;
+        document.getElementById('qtl-n-custom').value = '';
+      }
+      updateParamPreview();
+    }
+
+    function selectCustomN() {
+      const val = parseInt(document.getElementById('qtl-n-custom').value);
+      if (!isNaN(val) && val >= 4) {
+        ['15', '21', '35', '77'].forEach(k => {
+          const btn = document.getElementById(`qtl-n-${k}`);
+          if (btn) btn.className = 'qtl-param-btn';
+        });
+        qtlCurrentN = val;
+        updateParamPreview();
+      }
+    }
+
+    function selectA(val) {
+      ['7', '2', '4', '8'].forEach(k => {
+        const btn = document.getElementById(`qtl-a-${k}`);
+        if (btn) btn.className = (val === parseInt(k)) ? 'qtl-param-btn active' : 'qtl-param-btn';
+      });
+      if (val !== null) {
+        qtlCurrentA = val;
+        document.getElementById('qtl-a-custom').value = '';
+      }
+      updateParamPreview();
+    }
+
+    function selectCustomA() {
+      const val = parseInt(document.getElementById('qtl-a-custom').value);
+      if (!isNaN(val) && val >= 2) {
+        ['7', '2', '4', '8'].forEach(k => {
+          const btn = document.getElementById(`qtl-a-${k}`);
+          if (btn) btn.className = 'qtl-param-btn';
+        });
+        qtlCurrentA = val;
+        updateParamPreview();
+      }
+    }
+
+    function setQTLMessage(msg) {
+      document.getElementById('qtl-custom-message').value = msg;
+    }
+
+    // ── Shor's Algorithm Demo ─────────────────────────────────────────
+    async function runQuantumDemo() {
+      const btn = document.getElementById('btn-run-shor');
+      btn.disabled = true;
+      btn.textContent = 'Simulating quantum circuit…';
+
+      // Animate qubits
+      const qubits = document.querySelectorAll('#qtl-qubits .qtl-qubit');
+      qubits.forEach((q, i) => {
+        setTimeout(() => q.classList.add('active'), i * 80);
+      });
+
+      try {
+        const data = await api('POST', '/quantum/shor_demo', { n: qtlCurrentN, a: qtlCurrentA });
+
+        // Store recovered factors for HNDL attack
+        qtlShorFactors = { p: data.factors[0], q: data.factors[1] };
+
+        // Update stats
+        document.getElementById('qtl-num-qubits').textContent = data.num_qubits;
+        document.getElementById('qtl-circuit-depth').textContent = data.circuit_depth;
+        document.getElementById('qtl-period').textContent = `r = ${data.period_found}`;
+
+        // Show factors
+        const [p, q] = data.factors;
+        document.getElementById('qtl-factors-display').innerHTML =
+          `<span style="color:var(--accent-light)">p = ${p}</span> <span style="color:var(--text-secondary);font-size:14px;margin:0 4px;">,</span> <span style="color:var(--accent-light)">q = ${q}</span> <span style="color:var(--text-secondary);margin:0 8px;">→</span> <span style="color:var(--text)">N = ${qtlCurrentN}</span>`;
+
+        // Update dynamic explainer
+        document.getElementById('qtl-histogram-explainer').innerHTML =
+          `Concentration at states corresponds to multiples of 2<sup>${data.control_qubits}</sup>/r = ${(2**data.control_qubits / data.period_found).toFixed(1)}. The QFT extracts period r = ${data.period_found}, yielding factors gcd(${data.a}<sup>${data.period_found/2}</sup> ± 1, ${data.n}) = <strong>${p}, ${q}</strong>.`;
+
+        // Draw histogram
+        renderQuantumHistogram(data.measurement_counts);
+
+        // Hide placeholder & show results section
+        const placeholder = document.getElementById('qtl-shor-placeholder');
+        if (placeholder) placeholder.style.display = 'none';
+        document.getElementById('qtl-shor-results').style.display = 'block';
+
+        // Update HNDL attack hint
+        if (qtlCiphertextBlocks.length > 0) {
+          document.getElementById('qtl-attack-hint').textContent =
+            `Factors recovered: p=${p}, q=${q}. Ready to decrypt captured ciphertext.`;
+          document.getElementById('qtl-attack-hint').style.color = 'var(--accent-light)';
+        }
+
+        btn.textContent = `Simulation Complete (N=${qtlCurrentN})`;
+        btn.style.background = 'rgba(34,197,94,0.15)';
+        btn.style.color = 'var(--accent-light)';
+        btn.style.border = '1px solid rgba(34,197,94,0.3)';
+        btn.disabled = false;
+      } catch (e) {
+        btn.textContent = 'Run Quantum Threat Simulation';
+        btn.disabled = false;
+        qubits.forEach(q => q.classList.remove('active'));
+        alert('Simulation error: ' + (e.message || e));
+      }
+    }
+
+    function renderQuantumHistogram(measurementCounts) {
+      const labels = Object.keys(measurementCounts);
+      const values = Object.values(measurementCounts);
+      
+      // Top 4 largest counts are peak states
+      const sortedVals = [...values].sort((a,b) => b - a);
+      const threshold = sortedVals[Math.min(3, sortedVals.length - 1)];
+      
+      const bgColors = values.map(v =>
+        v >= threshold ? 'rgba(34, 197, 94, 0.75)' : 'rgba(255, 255, 255, 0.04)'
+      );
+      const borderColors = values.map(v =>
+        v >= threshold ? '#4ADE80' : 'rgba(255, 255, 255, 0.12)'
+      );
+
+      const ctx = document.getElementById('qtl-histogram-chart').getContext('2d');
+      if (qtlHistogramChart) qtlHistogramChart.destroy();
+
+      qtlHistogramChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Shot count',
+            data: values,
+            backgroundColor: bgColors,
+            borderColor: borderColors,
+            borderWidth: 1,
+            borderRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: ctx => `Eigenstate |${ctx[0].label}⟩ (Decimal ${parseInt(ctx[0].label, 2)})`,
+                label: ctx => `Measured shots: ${ctx.raw}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: '#A1A1AA', font: { size: 10, family: 'JetBrains Mono' } },
+              grid: { color: 'rgba(34, 197, 94, 0.05)' }
+            },
+            y: {
+              ticks: { color: '#71717A', font: { size: 10, family: 'JetBrains Mono' } },
+              grid: { color: 'rgba(34, 197, 94, 0.05)' },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // ── Classical HNDL Encrypt ────────────────────────────────────────
+    async function classicalEncrypt() {
+      const msgInput = document.getElementById('qtl-custom-message');
+      const message = msgInput.value.trim();
+      if (!message) {
+        alert('Please enter a message to encrypt.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-classical-encrypt');
+      btn.disabled = true;
+      btn.textContent = 'Encrypting with Toy RSA…';
+      try {
+        const data = await api('POST', '/quantum/toy_encrypt', { message, n: qtlCurrentN });
+        qtlCiphertextBlocks = data.ciphertext_blocks;
+        qtlEncryptedMessage = message;
+        qtlCurrentE = data.e;
+
+        // Display the ciphertext
+        const ctHex = data.ciphertext_blocks.map(b => b.toString(16).padStart(2, '0')).join(':');
+        document.getElementById('qtl-ciphertext-display').innerHTML =
+          `<div style="color:var(--text-secondary);font-size:10px;margin-bottom:6px;">RSA CIPHERTEXT STREAM (Toy RSA N=${data.n}, e=${data.e}):</div>` +
+          `<div style="color:var(--red);word-break:break-all;font-size:12px;font-family:var(--mono);">${ctHex}</div>` +
+          `<div style="color:var(--muted);margin-top:8px;font-size:10px;font-family:var(--mono);">Block Count: ${data.ciphertext_blocks.length} bytes &nbsp;|&nbsp; Public Exponent e = ${data.e}</div>`;
+
+        document.getElementById('qtl-captured-section').style.display = 'block';
+
+        if (qtlShorFactors) {
+          document.getElementById('qtl-attack-hint').textContent =
+            `Factors already available: p=${qtlShorFactors.p}, q=${qtlShorFactors.q}. Ready to decrypt.`;
+          document.getElementById('qtl-attack-hint').style.color = 'var(--accent-light)';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Message Encrypted & Captured';
+        btn.style.color = 'var(--red)';
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = 'Encrypt with Classical-Only (Toy RSA)';
+        alert('Encryption error: ' + (e.message || e));
+      }
+    }
+
+    // ── Quantum Attack (HNDL) ─────────────────────────────────────────
+    async function simulateQuantumAttack() {
+      if (!qtlShorFactors) {
+        alert('Please run Step 01 (Shor\'s simulation) first to extract prime factors.');
+        return;
+      }
+      if (qtlCiphertextBlocks.length === 0) {
+        alert('Please encrypt a message first.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-quantum-attack');
+      btn.disabled = true;
+      btn.textContent = 'Executing quantum decryption attack…';
+
+      try {
+        const data = await api('POST', '/quantum/toy_decrypt', {
+          ciphertext_blocks: qtlCiphertextBlocks,
+          p: qtlShorFactors.p,
+          q: qtlShorFactors.q,
+          original_message: qtlEncryptedMessage,
+          e: qtlCurrentE
+        });
+
+        document.getElementById('qtl-recovered-d').textContent = `d = ${data.private_key_d} (from φ(${qtlCurrentN}) = (${qtlShorFactors.p}-1)(${qtlShorFactors.q}-1) = ${(qtlShorFactors.p-1)*(qtlShorFactors.q-1)})`;
+        document.getElementById('qtl-decrypted-msg').textContent = `"${data.decrypted_message}"`;
+        document.getElementById('qtl-decrypted-section').style.display = 'block';
+
+        btn.disabled = false;
+        btn.textContent = 'Attack Succeeded — Key Derived';
+        btn.style.background = 'rgba(239,68,68,0.15)';
+        btn.style.color = '#F87171';
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = 'Simulate Quantum Attack (Use Shor\'s Factors)';
+        alert('Attack execution error: ' + (e.message || e));
+      }
+    }
+
+    // ── Mode Toggle (Classical / Hybrid) ─────────────────────────────
+    function setQuantumMode(mode) {
+      qtlCurrentMode = mode;
+      const btnC = document.getElementById('qtl-btn-classical');
+      const btnH = document.getElementById('qtl-btn-hybrid');
+      const classicDetail = document.getElementById('qtl-classical-detail');
+      const hybridDetail  = document.getElementById('qtl-hybrid-detail');
+      const classicSec    = document.getElementById('qtl-security-classical');
+      const hybridSec     = document.getElementById('qtl-security-hybrid');
+
+      if (mode === 'classical') {
+        btnC.className = 'qtl-mode-btn active-classical';
+        btnH.className = 'qtl-mode-btn';
+        classicDetail.style.display = '';
+        hybridDetail.style.display  = 'none';
+        classicSec.style.display    = '';
+        hybridSec.style.display     = 'none';
+      } else {
+        btnH.className = 'qtl-mode-btn active-hybrid';
+        btnC.className = 'qtl-mode-btn';
+        classicDetail.style.display = 'none';
+        hybridDetail.style.display  = '';
+        classicSec.style.display    = 'none';
+        hybridSec.style.display     = '';
+      }
+
+      // Reset handshake result
+      document.getElementById('qtl-handshake-result').style.display = 'none';
+      document.getElementById('btn-qtl-handshake').textContent = 'Execute Handshake in Current Mode';
+    }
+
+    // ── Hybrid Handshake Demo ─────────────────────────────────────────
+    async function runQuantumHandshake() {
+      const btn = document.getElementById('btn-qtl-handshake');
+      const res = document.getElementById('qtl-handshake-result');
+      btn.disabled = true;
+      btn.textContent = 'Running handshake…';
+
+      try {
+        const tier = qtlCurrentMode === 'hybrid' ? 1 : 4;
+        const data = await api('POST', '/api/handshake', { tier });
+
+        const color = qtlCurrentMode === 'hybrid' ? 'var(--accent-light)' : '#F87171';
+        res.innerHTML =
+          `<div style="color:${color};font-weight:700;margin-bottom:6px;font-size:12px;">${qtlCurrentMode === 'hybrid' ? 'QUANTA Hybrid Handshake Complete (Post-Quantum Secure)' : 'Classical Handshake Complete (Vulnerable to Shor)'}</div>` +
+          `<div>Protocol: <strong>${data.algorithm}</strong> &nbsp;|&nbsp; Security: <strong>${data.security_level}</strong></div>` +
+          `<div style="margin:4px 0;">Derived Session Key K: <code style="color:${color};">${data.K_hybrid_hex.slice(0,32)}…</code></div>` +
+          `<div>Latency: <strong>${data.timing.total_ms}ms</strong> (Server: ${data.timing.server_compute_ms}ms, Client: ${data.timing.client_compute_ms}ms)</div>` +
+          (qtlCurrentMode === 'hybrid'
+            ? `<div style="color:var(--accent-light);font-size:10px;margin-top:6px;border-top:1px solid rgba(34,197,94,0.15);padding-top:4px;">Protected: Master key derived via HKDF(K_classical ‖ K_pqc). Shor breaking X25519 yields zero advantage against ML-KEM-768.</div>`
+            : `<div style="color:#F87171;font-size:10px;margin-top:6px;border-top:1px solid rgba(239,68,68,0.15);padding-top:4px;">Vulnerable: Master key derived from single X25519 secret. Solvable by quantum discrete log (CRQC).</div>`
+          );
+        res.style.display = 'block';
+
+        btn.textContent = 'Handshake Complete';
+        btn.disabled = false;
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = 'Execute Handshake in Current Mode';
+        alert('Handshake error: ' + (e.message || e));
+      }
+    }
+
+    // Initialize Threat Lab parameters layout on load
+    updateParamPreview();
+
   </script>
 </body>
-
 </html>

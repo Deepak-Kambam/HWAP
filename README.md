@@ -219,6 +219,9 @@ $$\text{HNDLR-Score} = \sum (w_i \times S_i)$$
 | `POST` | `/api/sign` | Sign message payload using ML-DSA-65 private key |
 | `POST` | `/api/verify` | Verify ML-DSA-65 signature against public key |
 | `GET` | `/api/audit` | Query real-time server-side cryptographic event log |
+| `POST` | `/quantum/shor_demo` | Simulate Shor's algorithm for modular period finding |
+| `POST` | `/quantum/toy_encrypt` | Encrypt user payload message with Toy RSA modulus N |
+| `POST` | `/quantum/toy_decrypt` | Decrypt Toy RSA ciphertext using quantum-recovered factors p and q |
 
 ---
 
@@ -235,9 +238,11 @@ QUANTA/
     ├── crypto/
     │   ├── kdf.py                  # HKDF-SHA3-256 key combiner
     │   ├── kem.py                  # Hybrid X25519 + ML-KEM-768 logic
+    │   ├── quantum_shor.py         # Pure-Python Shor's simulation engine
     │   ├── shst.py                 # Session Hybrid Security Token generation
     │   ├── signatures.py           # ML-DSA-65 signing & verification
-    │   └── symmetric.py            # AES-256-GCM AEAD encryption/decryption
+    │   ├── symmetric.py            # AES-256-GCM AEAD encryption/decryption
+    │   └── toy_rsa.py              # Toy RSA encryption engine for HNDL demo
     ├── database/
     │   └── session.py              # SQLite session initialiser
     ├── models/
@@ -247,6 +252,7 @@ QUANTA/
     │   ├── auth.py                 # Registration and key generation endpoints
     │   ├── comms.py                # AES-256-GCM secure messaging router
     │   ├── handshake.py            # Handshake and tier switching router
+    │   ├── quantum_router.py       # Quantum Threat Lab simulation router
     │   ├── signing.py              # Digital signature and verification router
     │   └── system.py               # Health check and HNDLR scoring router
     ├── hndlr.py                    # HNDLR scoring engine
@@ -255,6 +261,22 @@ QUANTA/
     ├── requirements.txt            # Python dependencies
     └── state.py                    # Runtime crypto-agility tier state
 ```
+
+---
+
+## 🧪 Quantum Threat Lab
+
+QUANTA features an educational **Quantum Threat Lab** to demonstrate the mechanics of quantum-safe migration.
+
+1. **Shor's Algorithm Simulation:**
+   - **Interactive picker** for semi-primes $N$ ($15, 21, 35, 77$) and coprime base $a$.
+   - Dynamic calculation of multiplicative order $r = \text{ord}_N(a)$ and prime factors $p, q$.
+   - Realistic 1024-shot simulation of QFT phase estimation, rendering probability histogram peaks at multiples of $2^t/r$.
+2. **HNDL Decryption Demo:**
+   - Custom string encryption using Toy RSA ($c = m^e \pmod N$).
+   - Live simulated quantum attack utilizing recovered factors to compute $d = e^{-1} \pmod{\phi(N)}$ and restore the original text.
+3. **PQC vs. Classical Handshake Battle:**
+   - Interactive live performance execution of hybrid (ML-KEM-768 + X25519) and classical handshakes, showing microsecond-level timing breakdowns.
 
 ---
 
